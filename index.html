@@ -5,7 +5,7 @@
 <meta name="generator" content="jemdoc, see http://jemdoc.jaboc.net/" />
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <link rel="stylesheet" href="jemdoc.css" type="text/css" />
-<title>Govinda M. Kamath</title>
+<title></title>
 </head>
 <body>
 <table summary="Table for page layout." id="tlayout">
@@ -13,7 +13,8 @@
 <td id="layout-menu">
 <div class="menu-category">Govinda M Kamath</div>
 <div class="menu-item"><a href="index.html" class="current">Home</a></div>
-<div class="menu-item"><a href="./gk_Resume.pdf">CV</a></div>
+<div class="menu-item"><a href="./GK_CV.pdf">CV</a></div>
+<div class="menu-item"><a href="./gk_Resume.pdf">Short&nbsp;Resume</a></div>
 </td>
 <td id="layout-content">
 <h1>Govinda M. Kamath</h1>
@@ -29,32 +30,44 @@
 </script>
 
 <table class="imgtable"><tr><td>
-<a href="IMGLINKTARGET"><img src="image.jpeg" alt="Govinda Kamath" height="258px" /></a>&nbsp;</td>
-<td align="left"><p>Office # 260, <br /> 
-350 Serra Mall, <br />
-Dept of Electrical Engineering, <br />
-Stanford University, <br />
-California 94305, <br />
+<img src="image.jpeg" alt="Govinda Kamath" width="346px" height="IMGLINKTARGET" />&nbsp;</td>
+<td align="left"><p>Office # 12065, <br /> 
+1 Memorial Drive, <br />
+Microsoft Research New England Research and Development Lab, <br />
+Massachusetts 02142, <br />
 United States of America. <br />
-Email gkamath AT stanford.edu <br />
+Email - gkamath AT stanford.edu <br />
 Research interests: Machine learning, Algorithms, Computational Genomics, Information Theory <br />
-[<a href="https://scholar.google.com/citations?user=UztDgakAAAAJ&amp;hl=en">Google Scholar</a>] [<a href="https://github.com/govinda-kamath">Github</a>]</p>
+[<a href="https://scholar.google.com/citations?user=UztDgakAAAAJ&amp;hl=en" target=&ldquo;blank&rdquo;>Google Scholar</a>] [<a href="https://github.com/govinda-kamath" target=&ldquo;blank&rdquo;>Github</a>]
+</p>
 </td></tr></table>
 <h1>About Me</h1>
-<p>I am a fifth year doctoral student at the <a href="http://www-isl.stanford.edu/index.html">Information Systems Lab</a> at Stanford,
-working with Prof. <a href="https://web.stanford.edu/~dntse/">David Tse</a>. Most of my work during my doctoral studies has
-been on developing fast (that is almost linear time) machine learning algorithms for tackling various problems in computational genomics.
-Prior to this I did get a ME in Electrical Communication Engineering from Indian Institute of science, where I worked with Prof. <a href="http://ece.iisc.ernet.in/~vijay/">P Vijay Kumar</a> on designing and proving optimality results of codes related to Distributed Storage Systems.</p>
+<p>I am a post-doctoral researcher at <a href="https://www.microsoft.com/en-us/research/lab/microsoft-research-new-england/" target=&ldquo;blank&rdquo;>Microsoft Research New England Lab</a>.
+Before this I obtained my PhD from the
+http:<i></i>www-isl.stanford.edu/index.html Information Systems Lab] at Stanford,
+working with Prof. <a href="https://web.stanford.edu/~dntse/" target=&ldquo;blank&rdquo;>David Tse</a>. 
+My work during my doctoral and post-doctoral studies 
+has mainly involved designing and 
+deploying scalable machine learning algorithms to solve real problems,
+and showing their goodness, with problems often coming from computational genomics.
+</p>
 <p>I've also been involved in TA-ing and helping develop a new course 
-<a href="http://data-science-sequencing.github.io/">Data science for high throughput sequencing</a> taught by my adviser David Tse.
+<a href="http://data-science-sequencing.github.io/" target=&ldquo;blank&rdquo;>Data science for high throughput sequencing</a> taught by my adviser David Tse.
 We discuss various problems in computational genomics, the different ways of modelling them and solving them. We 
 cover a variety of tools from statistics, computer science and information theory that have been instrumental in
-tackling these problems. </p>
-<p>I'm passionate about making empirical components of my research easily reproducible. <a href="http://jupyter.org/">Jupyter notebooks</a> 
+tackling these problems. 
+</p>
+<p>I'm passionate about making empirical components of my research easily reproducible. <a href="http://jupyter.org/" target=&ldquo;blank&rdquo;>Jupyter notebooks</a> 
 have been a godsend in that context, and has enabled me improve the ease of reproducing of some of my more
-recent work quite drastically.</p>
+recent work quite drastically.
+</p>
+<p>In a previous life, I obtained a masters in Electrical Communication Engineering from Indian Institute of science,
+where I worked with Prof. <a href="http://ece.iisc.ernet.in/~vijay/" target=&ldquo;blank&rdquo;>P Vijay Kumar</a> on designing and 
+proving optimality results of codes related to Distributed Storage Systems.
+</p>
 <h2>Research</h2>
-<p>During my doctoral studies, the following are a sample of the problems I have worked on. </p>
+<p>During my doctoral studies, the following are a sample of the problems I have worked on. 
+</p>
 <ol>
 <li><p><b>Genome assembly</b>: The genome of an organism is a long strings of A,C,T,G. 
 Current sequencing technology allows us to obtain noisy substrings of the genome called reads from the genome. 
@@ -63,10 +76,34 @@ Assembling the genome from reads is a fundamental problem of computational genom
 I worked on this from both a theoretic and a practical perspective.<br />
 Genome assembly is constrained by repeats in the genome. We realised that the output of an assembler should 
 be a graph where every sequence corresponding to a genome is an eulerian cycle 
-(or an eulerian tour if the genome is linear). We wrote a practical assembler called <a href="https://github.com/HingeAssembler/HINGE">HINGE</a> 
-which was published in <a href="http://genome.cshlp.org/content/27/5/747">Genome Research</a>, 
+(or an eulerian tour if the genome is linear). We wrote a practical assembler called <a href="https://github.com/HingeAssembler/HINGE" target=&ldquo;blank&rdquo;>HINGE</a> 
+which was published in <a href="http://genome.cshlp.org/content/27/5/747" target=&ldquo;blank&rdquo;>Genome Research</a>, 
 and is still under active development with quite a few users primarily doing bacterial genomics. The current focus here is reducing the memory footprint. The theoretic results, which showed goodness of simplified version of HINGE from a rate distortion perspective
-were presented at <a href="https://arxiv.org/abs/1605.01941">International Symposium of Information Theory (ISIT)</a>.</p>
+were presented at <a href="https://arxiv.org/abs/1605.01941" target=&ldquo;blank&rdquo;>International Symposium of Information Theory (ISIT)</a>.
+</p>
+</li>
+<li><p><b>Using Monte-Carlo tree search to speed up common ML algorithms</b>:
+We consider common machine learning algorithms such as k-Nearest Neighbours, k-means and show that a monte-carlo search based algorithm can 
+provide speedups of the order of 10x in practice. We also prove theoretical results using the multi-armed bandit framework. 
+This was presented in part in NIPS-2017 workshop, in <a href="https://arxiv.org/abs/1711.00817" target=&ldquo;blank&rdquo;>AISTATS-2018</a> and is 
+<a href="https://arxiv.org/abs/1805.08321v1" target=&ldquo;blank&rdquo;>under review</a> currently.
+</p>
+</li>
+<li><p><b>Low-Rank models for sequence alignment</b>:  We considered a class of algorithms for sequence alignment - seed 
+and extend algorithms, and drew connections to low rank models. We derived spectral 
+estimators for such models and then used the framework we developed in 2. to speed up its computation. 
+This was published in <a href="https://link.springer.com/chapter/10.1007/978-3-030-45257-5_15" target=&ldquo;blank&rdquo;>Recomb 2020</a>, 
+<a href="https://www.cell.com/patterns/pdf/S2666-3899(20)30109-4.pdf" target=&ldquo;blank&rdquo;>Cell Patterns</a> and 
+<a href="https://papers.nips.cc/paper/2020/file/54e0e46b6647aa736c13ef9d09eab432-Paper.pdf" target=&ldquo;blank&rdquo;>NeurIPS 2020</a>.
+</p>
+</li>
+<li><p><b>Knowledge Distillation And Semiparametric Inference</b>: 
+We studied the problem of knowledge distillation - where it has been observed
+that training a small model using logits soft class labels  generated using a large 
+model trained from the data does better than directly training the small model using the data.  
+We cast knowledge distillation as a semiparametric inference problem and derive several new guarantees 
+for the prediction error of standard distillation. This will be published in <a href="https://openreview.net/forum?id=m4UCf24r0Y" target=&ldquo;blank&rdquo;>ICLR 2021</a>.
+</p>
 </li>
 <li><p><b>Single Cell RNA-seq</b>: RNA is an intermediate compound often created as an intermediate between DNA and protein.
 RNA transcripts are much smaller than DNA (of length tens of thousand instead of billions), and the number of 
@@ -80,111 +117,159 @@ of thousands of dimensions makes the problem more challenging.<br />
 One basic application of this technology is to be able to cluster cells from their RNA-seq reads. 
 We developed an equivalence class based method that does this with significant computational 
 savings over conventional methods. This was published in 
-<a href="https://genomebiology.biomedcentral.com/articles/10.1186/s13059-016-0970-8">Genome Biology</a>. <br /></p>
+<a href="https://genomebiology.biomedcentral.com/articles/10.1186/s13059-016-0970-8" target=&ldquo;blank&rdquo;>Genome Biology</a>. 
+</p>
 </li>
-<li><p><b>Adaptive Monte-Carlo Optimization</b>:
-One particular clustering algorithm that seems to be ideal for single-cell-RNA-seq data is k-medoids 
-as opposed to k-means. This is because the data is sparse and the centroid is not an ideal representative of the cluster. Further
-there has been a lot of interest in clustering this data using distances other than squared euclidean distances.
-gene expressions are sparse. The main bottle neck here was that computing the medoid took superlinear time. We 
-developed an algorithm: med-dit to compute medoids in almost linear time. This has been accepted for publication
-in <a href="https://arxiv.org/abs/1711.00817">AISTATS-2018</a>. The algorithm is based on a connection between the 
-combinatorial optimisation problem of finding medoids and the multi-armed bandits framework that we discovered
-and exploited. 
-We were able to extend these ideas to speed up a wide range of machine learning algorithms, such as
-k-Nearest Neighbours, k-means, heirarchical clustering in a framework that we call 
-<a href="https://arxiv.org/abs/1805.08321">Adaptive Monte-Carlo Optimization</a>. This is under review at NIPS-2018.</p>
+<li><p><b>Post clustering differential analysis for Single Cell RNA-seq</b>: 
+We noticed that standard pipelines of single cell RNA seq had a data snooping 
+problem leading to artificially low p-values
+and a selection of spurious genes as differentiating clusters of cells discovered 
+in the single cell RNA-seq analysis. 
+We quantified this bias and proposed solutions. This was published in 
+<a href="https://link.springer.com/book/10.1007%2F978-3-030-17083-7" target=&ldquo;blank&rdquo;>RECOMB 2019</a> and 
+<a href="https://www.sciencedirect.com/science/article/pii/S2405471219302698" target=&ldquo;blank&rdquo;>Cell Systems</a>.
+</p>
 </li>
-<li><p><b>Haplotype Assembly</b>: Humans and other higher organisms are diploid, 
+<li><p><b>Haplotype Assembly, Codes and Spectral Algorithms</b>: Humans and other higher organisms are diploid, 
 that is they have two copies of their genome. These two copies  are almost identical 
 with some polymorphic sites and regions (less than 0.3% of the genome). 
 The problem here is to estimate which of the polymorphisms are on the same copy of a chromosome. 
 We attacked this in two theoretic frameworks. 
 The first was noting that this was a convolutional code, and the second was posing this as a community detection problem. 
-These were published at <a href="https://arxiv.org/abs/1502.01975">ISIT-2015</a> and <a href="https://arxiv.org/abs/1602.03828">ICML-2016</a>. </p>
+These were published at <a href="https://arxiv.org/abs/1502.01975" target=&ldquo;blank&rdquo;>ISIT-2015</a> and <a href="https://arxiv.org/abs/1602.03828" target=&ldquo;blank&rdquo;>ICML-2016</a>. 
+</p>
 </li>
 </ol>
 <p>Some other problems I've dabbled with include trying to understand deep neural nets in the context of
 information theoretic and computational genomics problems (like the problem of finding DNA motifs binding
-with proteins). </p>
+with proteins), and building deep learning models to predict where CRISPR-CAS9 guides cut a DNA sequences. 
+</p>
 <h2>Preprints and Publications</h2>
 <ul>
+<li><p>Tri Dao, Govinda M Kamath, Vasilis Syrgkanis, and Lester Mackey, &lsquo;&lsquo;Knowledge Distillation as Semiparametric Inference&rsquo;&rsquo;, 
+accepted at ICLR 2021. [<a href="https://openreview.net/forum?id=m4UCf24r0Y" target=&ldquo;blank&rdquo;>Preprint</a>] 
+</p>
+</li>
+</ul>
+<ul>
+<li><p>Govinda M Kamath*, Tavor Baharav*, Ilan Shomorony, &lsquo;&lsquo;Adaptive Learning of Rank-One Models for Efficient Pairwise Sequence Alignment&rsquo;&rsquo;, 
+NeurIPS 2020. [<a href="https://arxiv.org/abs/2011.04832" target=&ldquo;blank&rdquo;>Paper</a>] [<a href="https://arxiv.org/abs/2011.04832" target=&ldquo;blank&rdquo;>Preprint</a>]
+[<a href="https://github.com/TavorB/adaptiveSpectral" target=&ldquo;blank&rdquo;>Analysis</a>]. <br />
+* co-first authors
+</p>
+</li>
+</ul>
+<ul>
+<li><p>Govinda M. Kamath, Hugh Yeh, Ifrah Tariq,  Ernest Fraenkel, and Lester Mackey, &lsquo;&lsquo;Graph-structured Feature Selection with 
+Normalized Trend Filtering&rsquo;&rsquo;, Under Review.
+</p>
+</li>
+</ul>
+<ul>
+<li><p>Tavor Baharav*, Govinda M Kamath*, David N Tse, and Ilan Shomorony, &lsquo;&lsquo;Spectral Jaccard Similarity: 
+A new approach to estimating pairwise sequence alignments&rsquo;&rsquo;, Cell Patterns 1.6. [<a href="https://www.cell.com/patterns/pdf/S2666-3899(20)30109-4.pdf" target=&ldquo;blank&rdquo;>Paper</a>]
+[<a href="https://www.biorxiv.org/content/10.1101/800581v1" target=&ldquo;blank&rdquo;>Preprint</a>] [<a href="https://github.com/TavorB/spectral_jaccard_similarity" target=&ldquo;blank&rdquo;>Analysis</a>]<br />
+* co-first authors
+</p>
+</li>
+</ul>
+<ul>
+<li><p>Tara Basu Trivedi, Ron Boger, Govinda M Kamath, Georgios Evangelopoulos, Jamie Cate, Jennifer Doudna, and Jack Hidary, &lsquo;&lsquo;crispr2vec: Machine Learning Model Predicts Off-Target Cuts of CRISPR systems&rsquo;&rsquo;, Under Review. [<a href="https://www.biorxiv.org/content/biorxiv/early/2020/10/29/2020.10.28.359885.full.pdf" target=&ldquo;blank&rdquo;>Preprint</a>]
+</p>
+</li>
+</ul>
+<ul>
 <li><p>Jesse M. Zhang, Govinda M. Kamath, David N. Tse, &lsquo;&lsquo;Towards a post-clustering test for differential expression&rsquo;&rsquo;,
-Under review at RECOMB 2019. [<a href="https://www.biorxiv.org/content/early/2018/11/05/463265">Preprint</a>] 
-[<a href="https://github.com/jessemzhang/tn_test">Analysis</a>]</p>
+Under review at RECOMB 2019. [<a href="https://www.biorxiv.org/content/early/2018/11/05/463265" target=&ldquo;blank&rdquo;>Preprint</a>] 
+[<a href="https://github.com/jessemzhang/tn_test" target=&ldquo;blank&rdquo;>Analysis</a>]
+</p>
 </li>
 </ul>
 <ul>
 <li><p>Vivek Bagaria*, Govinda M. Kamath*, David N. Tse, &lsquo;&lsquo;Adaptive
-Monte-Carlo Optimization&rsquo;&rsquo;, Under review at AISTATS 2018. [<a href="https://arxiv.org/abs/1805.08321">Preprint</a>]  
-[<a href="https://github.com/govinda-kamath/combinatorial_MAB">Analysis</a>] 
-* co-first authors</p>
+Monte-Carlo Optimization&rsquo;&rsquo;, Under review. [<a href="https://arxiv.org/abs/1805.08321" target=&ldquo;blank&rdquo;>Preprint</a>]  
+[<a href="https://github.com/govinda-kamath/combinatorial_MAB" target=&ldquo;blank&rdquo;>Analysis</a>] <br /> 
+* co-first authors
+</p>
 </li>
 </ul>
 <ul>
 <li><p>Vivek Bagaria *, Govinda M. Kamath *, Vasilis Ntranos *, Martin J. Zhang *, and David N. Tse. &ldquo;Medoids in almost linear time via multi-armed bandits.&rdquo; Presented at
 International Conference on 
-Artificial Intelligence and Statistics - 2018, (AISTATS-2018). Also presented at <a href="https://sites.google.com/view/nips2017interactions/">NIPS workshop for learning interactions from complex data</a>. [<a href="https://arxiv.org/pdf/1711.00817.pdf">Preprint</a>] 
-[<a href="http://proceedings.mlr.press/v84/bagaria18a/bagaria18a.pdf">Paper</a>] [<a href="https://github.com/bagavi/Meddit">Analysis</a>].<br />
-* co-first authors</p>
+Artificial Intelligence and Statistics - 2018, (AISTATS-2018). Also presented at <a href="https://sites.google.com/view/nips2017interactions/" target=&ldquo;blank&rdquo;>NIPS workshop for learning interactions from complex data</a>. [<a href="https://arxiv.org/pdf/1711.00817.pdf" target=&ldquo;blank&rdquo;>Preprint</a>] 
+[<a href="http://proceedings.mlr.press/v84/bagaria18a/bagaria18a.pdf" target=&ldquo;blank&rdquo;>Paper</a>] [<a href="https://github.com/bagavi/Meddit" target=&ldquo;blank&rdquo;>Analysis</a>].<br />
+* co-first authors
+</p>
 </li>
 </ul>
 <ul>
-<li><p>Govinda M.Kamath *,  Ilan Shomorony*, Fei Xia*, Thomas A. Courtade, and David N. Tse. &ldquo;HINGE: long-read assembly achieves optimal repeat resolution.&rdquo; Genome research 27, no. 5 (2017): 747-756. [<a href="https://www.biorxiv.org/content/early/2017/03/16/062117">Preprint</a>] [<a href="http://genome.cshlp.org/content/27/5/747">Paper</a>] [<a href="https://github.com/HingeAssembler/HINGE">Code</a>] [<a href="https://github.com/HingeAssembler/HINGE-analyses">Analysis</a>] 
-[<a href="https://www.genomeweb.com/scan/week-genome-research-29">Press Coverage</a>] <br />
-* co-first authors</p>
+<li><p>Govinda M.Kamath *,  Ilan Shomorony*, Fei Xia*, Thomas A. Courtade, and David N. Tse. &ldquo;HINGE: long-read assembly achieves optimal repeat resolution.&rdquo; Genome research 27, no. 5 (2017): 747-756. [<a href="https://www.biorxiv.org/content/early/2017/03/16/062117" target=&ldquo;blank&rdquo;>Preprint</a>] [<a href="http://genome.cshlp.org/content/27/5/747" target=&ldquo;blank&rdquo;>Paper</a>] [<a href="https://github.com/HingeAssembler/HINGE" target=&ldquo;blank&rdquo;>Code</a>] [<a href="https://github.com/HingeAssembler/HINGE-analyses" target=&ldquo;blank&rdquo;>Analysis</a>] 
+[<a href="https://www.genomeweb.com/scan/week-genome-research-29" target=&ldquo;blank&rdquo;>Press Coverage</a>] <br />
+* co-first authors
+</p>
 </li>
 </ul>
 <ul>
-<li><p>Yuxin Chen, Govinda M. Kamath, Changho Suh, and David N. Tse, ‘‘Community Recovery in Graphs with Locality’’, International Conference on Machine Learning - 2016 (ICML- 2016), New York City, USA. [<a href="https://arxiv.org/abs/1602.03828">Preprint</a>] [<a href="http://proceedings.mlr.press/v48/chena16.pdf">Paper</a>]</p>
+<li><p>Yuxin Chen, Govinda M. Kamath, Changho Suh, and David N. Tse, ‘‘Community Recovery in Graphs with Locality’’, International Conference on Machine Learning - 2016 (ICML- 2016), New York City, USA. [<a href="https://arxiv.org/abs/1602.03828" target=&ldquo;blank&rdquo;>Preprint</a>] [<a href="http://proceedings.mlr.press/v48/chena16.pdf" target=&ldquo;blank&rdquo;>Paper</a>]
+</p>
 </li>
 </ul>
 <ul>
 <li><p>Lee Organick, Siena Dumas Ang, Yuan-Jyue Chen, Randolph Lopez, Sergey Yekhanin, Konstantin Makarychev, Miklos Z Racz, Govinda M. Kamath, Parikshit Gopalan, Bichlien Nguyen, Christopher Takahashi, Sharon Newman, Hsing-Yeh Parker, Cyrus Rashtchian, Kendall Stewart, Gagan Gupta, Robert Carlson, John Mulligan, Douglas Carmean, Georg Seelig, Luis Ceze, Karin Strauss,
-&lsquo;&lsquo;Scaling up DNA data storage and random access retrieval&rsquo;&rsquo;, to be published in Nature Biotechnology. [<a href="http://www.biorxiv.org/content/biorxiv/early/2017/03/07/114553.full.pdf">Preprint</a>] <br />
-This was a large project that I was a part of as an intern at MSR, Redmond. My work was mainly in analysing the data, modelling and characterising the storage channel.</p>
+&lsquo;&lsquo;Scaling up DNA data storage and random access retrieval&rsquo;&rsquo;, to be published in Nature Biotechnology. [<a href="http://www.biorxiv.org/content/biorxiv/early/2017/03/07/114553.full.pdf" target=&ldquo;blank&rdquo;>Preprint</a>] <br />
+This was a large project that I was a part of as an intern at MSR, Redmond. My work was mainly in analysing the data, modelling and characterising the storage channel.
+</p>
 </li>
 </ul>
 <ul>
-<li><p>Ilan Shomorony, Govinda M. Kamath, Fei Xia, Thomas A. Courtade, and David N. Tse, ‘‘Partial Assembly: A Rate-Distortion Perspective’’,  IEEE International Symposium of Information Theory - 2016 (ISIT- 2016), Barcelona, Spain. [<a href="https://arxiv.org/abs/1605.01941">Preprint</a>] [<a href="http://ieeexplore.ieee.org/document/7541609/">Paper</a>]</p>
+<li><p>Ilan Shomorony, Govinda M. Kamath, Fei Xia, Thomas A. Courtade, and David N. Tse, ‘‘Partial Assembly: A Rate-Distortion Perspective’’,  IEEE International Symposium of Information Theory - 2016 (ISIT- 2016), Barcelona, Spain. [<a href="https://arxiv.org/abs/1605.01941" target=&ldquo;blank&rdquo;>Preprint</a>] [<a href="http://ieeexplore.ieee.org/document/7541609/" target=&ldquo;blank&rdquo;>Paper</a>]
+</p>
 </li>
 </ul>
 <ul>
-<li><p>Jesse Zhang and Govinda M. Kamath, &rsquo;'Learning the Language of the Genome using RNNs&rsquo;&rsquo;, CS224d Project. [<a href="http://cs224d.stanford.edu/reports/jessesz.pdf">Technical Report</a>]</p>
+<li><p>Jesse Zhang and Govinda M. Kamath, &rsquo;'Learning the Language of the Genome using RNNs&rsquo;&rsquo;, CS224d Project. [<a href="http://cs224d.stanford.edu/reports/jessesz.pdf" target=&ldquo;blank&rdquo;>Technical Report</a>]
+</p>
 </li>
 </ul>
 <ul>
-<li><p>Vasilis Ntranos*, Govinda M. Kamath*, Jesse Zhang*, Lior Pachter and David N. Tse, ‘‘Fast and accurate single-cell RNA-Seq analysis by clustering of transcript-compatibility counts’’, in press in Genome Biology special issue on single cell omics. [<a href="https://www.biorxiv.org/content/early/2016/03/04/036863">Preprint</a>] [<a href="https://genomebiology.biomedcentral.com/articles/10.1186/s13059-016-0970-8">Paper</a>] [<a href="https://github.com/govinda-kamath/clustering_on_transcript_compatibility_counts">Analysis</a>] <br />
-* co-first authors</p>
+<li><p>Vasilis Ntranos*, Govinda M. Kamath*, Jesse Zhang*, Lior Pachter and David N. Tse, ‘‘Fast and accurate single-cell RNA-Seq analysis by clustering of transcript-compatibility counts’’, in press in Genome Biology special issue on single cell omics. [<a href="https://www.biorxiv.org/content/early/2016/03/04/036863" target=&ldquo;blank&rdquo;>Preprint</a>] [<a href="https://genomebiology.biomedcentral.com/articles/10.1186/s13059-016-0970-8" target=&ldquo;blank&rdquo;>Paper</a>] [<a href="https://github.com/govinda-kamath/clustering_on_transcript_compatibility_counts" target=&ldquo;blank&rdquo;>Analysis</a>] <br />
+* co-first authors
+</p>
 </li>
 </ul>
 <ul>
-<li><p>Govinda M Kamath, Eren Sasoglu, and David Tse. ‘‘Optimal Haplotype Assembly from High-Throughput Mate Pair Reads’’, published in IEEE International Symposium of Information Theory - 2015 (ISIT-2015), Hong Kong. [<a href="https://arxiv.org/abs/1502.01975">Preprint</a>] [<a href="http://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=7282588">Paper</a>]</p>
+<li><p>Govinda M Kamath, Eren Sasoglu, and David Tse. ‘‘Optimal Haplotype Assembly from High-Throughput Mate Pair Reads’’, published in IEEE International Symposium of Information Theory - 2015 (ISIT-2015), Hong Kong. [<a href="https://arxiv.org/abs/1502.01975" target=&ldquo;blank&rdquo;>Preprint</a>] [<a href="http://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=7282588" target=&ldquo;blank&rdquo;>Paper</a>]
+</p>
 </li>
 </ul>
 <ul>
-<li><p>Govinda M Kamath, Narayanamoorthy Prakash, Lalitha Vadlamani, and P Vijay Kumar.‘‘Codes With Local Regeneration and Erasure Correction’’. IEEE Transactions of Information Theory June 2014. Earlier version published in the proceedings of IEEE International Symposium of Information Theory - 2013 (ISIT 2013), Istanbul, Turkey. [<a href="https://arxiv.org/abs/1211.1932">Preprint</a>] [<a href="http://ieeexplore.ieee.org/document/6502947/">Conference Version</a>] [<a href="http://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=6846301">Journal Version</a>]</p>
+<li><p>Govinda M Kamath, Narayanamoorthy Prakash, Lalitha Vadlamani, and P Vijay Kumar.‘‘Codes With Local Regeneration and Erasure Correction’’. IEEE Transactions of Information Theory June 2014. Earlier version published in the proceedings of IEEE International Symposium of Information Theory - 2013 (ISIT 2013), Istanbul, Turkey. [<a href="https://arxiv.org/abs/1211.1932" target=&ldquo;blank&rdquo;>Preprint</a>] [<a href="http://ieeexplore.ieee.org/document/6502947/" target=&ldquo;blank&rdquo;>Conference Version</a>] [<a href="http://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=6846301" target=&ldquo;blank&rdquo;>Journal Version</a>]
+</p>
 </li>
 </ul>
 <ul>
-<li><p>Govinda M Kamath, Narayanamoorthy Prakash, Lalitha Vadlamani, P. Vijay Kumar, Natalia Silberstein, Ankit S. Rawat, O. Ozan Koyluoglu, and Sriram Vishwanath, ‘‘Explicit MBR All-Symbol Locality Codes’’. Proceedings of IEEE International Symposium of Information Theory - 2013 (ISIT 2013), Istanbul, Turkey. [<a href="https://arxiv.org/abs/1302.0744">Preprint</a>] [<a href="http://ieeexplore.ieee.org/document/6620277/">Paper</a>]</p>
+<li><p>Govinda M Kamath, Narayanamoorthy Prakash, Lalitha Vadlamani, P. Vijay Kumar, Natalia Silberstein, Ankit S. Rawat, O. Ozan Koyluoglu, and Sriram Vishwanath, ‘‘Explicit MBR All-Symbol Locality Codes’’. Proceedings of IEEE International Symposium of Information Theory - 2013 (ISIT 2013), Istanbul, Turkey. [<a href="https://arxiv.org/abs/1302.0744" target=&ldquo;blank&rdquo;>Preprint</a>] [<a href="http://ieeexplore.ieee.org/document/6620277/" target=&ldquo;blank&rdquo;>Paper</a>]
+</p>
 </li>
 </ul>
 <ul>
-<li><p>Narayanamoorthy Prakash, Govinda M Kamath, Lalitha Vadlamani, and P Vijay Kumar.‘‘Optimal Linear Codes with a Local-Error-Correction Property’’. in Proceedings of IEEE International Symposium of Information Theory - 2012 (ISIT 2012), Cambridge, Massachusetts, USA. [<a href="https://arxiv.org/abs/1202.2414">Preprint</a>] [<a href="http://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=6284028">Paper</a>]</p>
+<li><p>Narayanamoorthy Prakash, Govinda M Kamath, Lalitha Vadlamani, and P Vijay Kumar.‘‘Optimal Linear Codes with a Local-Error-Correction Property’’. in Proceedings of IEEE International Symposium of Information Theory - 2012 (ISIT 2012), Cambridge, Massachusetts, USA. [<a href="https://arxiv.org/abs/1202.2414" target=&ldquo;blank&rdquo;>Preprint</a>] [<a href="http://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=6284028" target=&ldquo;blank&rdquo;>Paper</a>]
+</p>
 </li>
 </ul>
 <ul>
-<li><p>Govinda M Kamath and P Vijay Kumar. ‘‘Regenerating codes: a reformulated storage-bandwidth trade-off and a new construction.’'in Proceedings. of the National Conference on Communication 2012 (NCC 2012), IIT Kharagpur, India. [<a href="http://ieeexplore.ieee.org/document/6176911/">Paper</a>]</p>
+<li><p>Govinda M Kamath and P Vijay Kumar. ‘‘Regenerating codes: a reformulated storage-bandwidth trade-off and a new construction.’'in Proceedings. of the National Conference on Communication 2012 (NCC 2012), IIT Kharagpur, India. [<a href="http://ieeexplore.ieee.org/document/6176911/" target=&ldquo;blank&rdquo;>Paper</a>]
+</p>
 </li>
 </ul>
 <ul>
-<li><p>Lalitha Vadlamani, Narayanamoorthy Prakash, Govinda M Kamath, and P Vijay Kumar. ‘‘On t-designs and bounds relating query complexity to error resilience in locally correctable codes.’’ in Proceedings. of the National Conference on Communication 2012 (NCC 2012), IIT Kharagpur, India. [<a href="https://ieeexplore.ieee.org/abstract/document/6176752/">Paper</a>]</p>
+<li><p>Lalitha Vadlamani, Narayanamoorthy Prakash, Govinda M Kamath, and P Vijay Kumar. ‘‘On t-designs and bounds relating query complexity to error resilience in locally correctable codes.’’ in Proceedings. of the National Conference on Communication 2012 (NCC 2012), IIT Kharagpur, India. [<a href="https://ieeexplore.ieee.org/abstract/document/6176752/" target=&ldquo;blank&rdquo;>Paper</a>]
+</p>
 </li>
 </ul>
 <div id="footer">
 <div id="footer-text">
-Page generated 2018-11-07 12:36:16 PST, by <a href="http://jemdoc.jaboc.net/">jemdoc</a>.
+Page generated 2021-02-11 19:00:12 EST, by <a href="https://github.com/wsshin/jemdoc_mathjax" target="blank">jemdoc+MathJax</a>.
 </div>
 </div>
 </td>
