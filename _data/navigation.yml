@@ -4,7 +4,7 @@ main:
     url: /
 
   - title: Résumé
-    url: "/assets/gk_resume.pdf"
+    url: "/short_resume"
 
   - title: Research
     url: /research/
