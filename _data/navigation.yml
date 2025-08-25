@@ -1,0 +1,16 @@
+# main links
+main:
+  - title: Home
+    url: /
+
+  - title: Résumé
+    url: "/assets/gk_resume.pdf"
+
+  - title: Research
+    url: /research/
+
+  - title: Publications
+    url: /publications/
+    
+  - title: Blog
+    url: /blog/
