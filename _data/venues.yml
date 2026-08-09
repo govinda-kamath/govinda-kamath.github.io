@@ -1,0 +1,95 @@
+"Nat. Genet.":
+  url: https://www.nature.com/ng/
+  color: "#1a7f37"
+
+"J. Mol. Diagn.":
+  url: https://www.jmdjournal.org/
+  color: "#00695c"
+
+"Cancer Res.":
+  url: https://aacrjournals.org/cancerres
+  color: "#8e24aa"
+
+"JITC":
+  url: https://jitc.bmj.com/
+  color: "#00838f"
+
+"J. Immunol.":
+  url: https://www.jimmunol.org/
+  color: "#c62828"
+
+"US Patent":
+  url: https://patents.google.com/
+  color: "#37474f"
+
+"Stanford":
+  url: https://www.stanford.edu/
+  color: "#8c1515"
+
+"Nat. Commun.":
+  url: https://www.nature.com/ncomms/
+  color: "#0f9960"
+
+"ICLR":
+  url: https://iclr.cc/
+  color: "#5e35b1"
+
+"NeurIPS":
+  url: https://neurips.cc/
+  color: "#ad1457"
+
+"Cell Patterns":
+  url: https://www.cell.com/patterns
+  color: "#00838f"
+
+"bioRxiv":
+  url: https://www.biorxiv.org/
+  color: "#b8860b"
+
+"Cell Syst.":
+  url: https://www.cell.com/cell-systems
+  color: "#6d4c41"
+
+"IEEE JSAIT":
+  url: https://ieeexplore.ieee.org/xpl/RecentIssue.jsp?punumber=8867336
+  color: "#0d47a1"
+
+"arXiv":
+  url: https://arxiv.org/
+  color: "#b71c1c"
+
+"AISTATS":
+  url: https://aistats.org/
+  color: "#2e7d32"
+
+"Genome Res.":
+  url: https://genome.cshlp.org/
+  color: "#1565c0"
+
+"ICML":
+  url: https://icml.cc/
+  color: "#4527a0"
+
+"Nat. Biotechnol.":
+  url: https://www.nature.com/nbt/
+  color: "#00695c"
+
+"ISIT":
+  url: https://www.itsoc.org/
+  color: "#0d47a1"
+
+"CS224d":
+  url: http://cs224d.stanford.edu/
+  color: "#6a1b9a"
+
+"Genome Biol.":
+  url: https://genomebiology.biomedcentral.com/
+  color: "#1b5e20"
+
+"IEEE TIT":
+  url: https://ieeexplore.ieee.org/xpl/RecentIssue.jsp?punumber=18
+  color: "#0d47a1"
+
+"NCC":
+  url: https://www.ncc.org.in/
+  color: "#546e7a"

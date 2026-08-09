@@ -1,0 +1,126 @@
+cv:
+  name: Govinda M. Kamath
+  label: Senior Scientist, 10x Genomics
+  location: Pleasanton, CA
+  image: ""
+  summary: >
+    Applied ML researcher/engineer with 5+ years turning algorithms into production systems used
+    by biologists and engineers, spanning fundamental academic research (PhD, Stanford) and biotech
+    industry practice (10x Genomics). I work in tight collaboration with experimental biologists to
+    design analyses and build pipelines they can depend on — across single-cell, spatial transcriptomics,
+    and imaging platforms — with a career-long focus on making biological inference rigorous: avoiding
+    false discoveries and building methods scientists can actually trust.
+
+  social_networks:
+    - network: Google Scholar
+      username: UztDgakAAAAJ
+    - network: GitHub
+      username: govinda-kamath
+    - network: LinkedIn
+      username: govinda-k-805b191b
+    - network: X
+      username: govikamath
+
+  sections:
+    Experience:
+      - name: 10x Genomics
+        position: Senior Scientist
+        location: Pleasanton, CA
+        url: https://www.10xgenomics.com/
+        start_date: 2021-07
+        end_date: present
+        highlights:
+          - "Visium HD spatial transcriptomics: worked in a tight loop with biologists on assay and protocol development, designing and optimizing metrics for sensitivity, specificity, and false-positive detection. Algorithms that extract spatial signal from data — effectively a 30,000-sparse-channel image — ship in Visium HD and run in production for every Visium HD customer."
+          - "Production ML pipelines: led end-to-end development of ML models for cell-type annotation and nucleus segmentation — from data collection and labeling through training, evaluation, and production deployment — across all three 10x Genomics platforms: Visium, Xenium, and Chromium (single-cell)."
+          - "Engineering infrastructure: own production-quality pipelines end-to-end within 10x Genomics' large shared codebase (primarily Python and Rust, also Go and C/C++), shipped in released software, with reproducible builds via Bazel."
+          - "Agentic AI for single-cell workflows: building a tool-use agentic environment that automates single-cell analysis workflows, using eval-driven development to measure agent performance, correctness, and failure modes."
+          - "Led a team of 3 ML scientists/engineers building ML algorithms from data collection through production."
+
+      - name: Microsoft Research New England
+        position: Postdoctoral Researcher
+        location: Cambridge, MA
+        url: https://www.microsoft.com/en-us/research/lab/microsoft-research-new-england/
+        start_date: 2019-08
+        end_date: 2021-07
+        highlights:
+          - "Research on knowledge distillation, bandit-based rank-one models, and connections between sequence alignment and compression; published at ICLR and NeurIPS."
+          - "Advised by Lester Mackey."
+
+      - name: Applied Protocol Research
+        position: PhD Intern
+        location: Palo Alto, CA
+        start_date: 2019-01
+        end_date: 2019-03
+
+      - name: Google X
+        position: Machine Learning Resident
+        location: Mountain View, CA
+        start_date: 2018-07
+        end_date: 2018-09
+
+      - name: Microsoft Research
+        position: Research Intern, Theory Group
+        location: Bangalore, India
+        start_date: 2017-06
+        end_date: 2017-09
+        highlights:
+          - "Worked on spectral clustering on a planted block model."
+
+      - name: Microsoft Research
+        position: Research Intern, Theory Group
+        location: Redmond, WA
+        start_date: 2016-06
+        end_date: 2016-09
+        highlights:
+          - "Worked on the DNA storage project: trace reconstruction and data analysis."
+
+      - name: Indian Institute of Science (IISc)
+        position: Research Associate, Codes and Signal Design Lab
+        location: Bangalore, India
+        url: https://ece.iisc.ac.in/
+        start_date: 2012-08
+        end_date: 2013-05
+        highlights:
+          - "Project: Codes for Distributed Storage (funded by NetApp Inc.)."
+
+    Education:
+      - institution: Stanford University
+        location: Stanford, CA
+        url: https://www.stanford.edu/
+        area: Electrical Engineering
+        studyType: PhD
+        start_date: 2014-06
+        end_date: 2019-05
+        highlights:
+          - "Advisor: David Tse."
+          - "Thesis: Almost linear time algorithms for problems from Computational Genomics."
+          - "GPA: 4.0/4.0"
+
+      - institution: University of California, Berkeley
+        location: Berkeley, CA
+        url: https://www.berkeley.edu/
+        area: Electrical Engineering and Computer Science
+        studyType: Doctoral candidate
+        start_date: 2013-08
+        end_date: 2014-05
+
+      - institution: Indian Institute of Science (IISc)
+        location: Bangalore, India
+        url: https://ece.iisc.ac.in/
+        area: Electrical Communication Engineering
+        studyType: Master of Engineering (M.E.)
+        start_date: 2010-08
+        end_date: 2012-07
+        highlights:
+          - "Thesis: On codes for Distributed Storage and Locality of Error Correction."
+          - "Class rank: 1/28"
+
+      - institution: National Institute of Technology Karnataka (NITK)
+        location: Surathkal, India
+        url: https://www.nitk.ac.in/
+        area: Electronics and Communication Engineering
+        studyType: Bachelor of Technology (B.Tech.)
+        start_date: 2006-08
+        end_date: 2010-05
+        highlights:
+          - "Class rank: 1/74"

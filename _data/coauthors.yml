@@ -1,0 +1,63 @@
+"tse":
+  - firstname: ["David", "David N.", "D. N."]
+    url: https://web.stanford.edu/~dntse/
+
+"mackey":
+  - firstname: ["Lester"]
+    url: https://www.microsoft.com/en-us/research/people/lmackey/
+
+"shomorony":
+  - firstname: ["Ilan"]
+    url: https://ishomorony.github.io/
+
+"baharav":
+  - firstname: ["Tavor"]
+    url: https://www.tavorb.com/
+
+"ntranos":
+  - firstname: ["Vasilis"]
+    url: https://ntranoslab.org/
+
+"pachter":
+  - firstname: ["Lior"]
+    url: https://pachterlab.github.io/
+
+"courtade":
+  - firstname: ["Thomas", "Thomas A."]
+    url: https://www.eecs.berkeley.edu/~courtade/
+
+"chen":
+  - firstname: ["Yuxin"]
+    url: https://ece.princeton.edu/people/yuxin-chen
+
+"suh":
+  - firstname: ["Changho"]
+    url: https://stail.kaist.ac.kr/
+
+"kumar":
+  - firstname: ["P. Vijay"]
+    url: https://ece.iisc.ac.in/~vijay/
+
+"doudna":
+  - firstname: ["Jennifer"]
+    url: https://doudnalab.org/
+
+"ceze":
+  - firstname: ["Luis"]
+    url: https://homes.cs.washington.edu/~luisceze/
+
+"strauss":
+  - firstname: ["Karin"]
+    url: https://www.microsoft.com/en-us/research/people/kstrauss/
+
+"gopalan":
+  - firstname: ["Parikshit"]
+    url: https://www.parikshitgopalan.com/
+
+"vadlamani":
+  - firstname: ["Lalitha"]
+    url: https://faculty.iiit.ac.in/~lalitha.v/
+
+"zhang":
+  - firstname: ["Jesse", "Jesse M."]
+    url: https://jessemzhang.github.io/
