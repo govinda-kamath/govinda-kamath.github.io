@@ -29,10 +29,12 @@ pagination:
   </div>
   {% endif %}
 
+{% if site.posts.size == 0 %}
 <div style="max-width: 460px; margin: 2.5rem auto; padding: 1.5rem 2rem; text-align: center; border: 1px dashed currentColor; border-radius: 8px;">
   <p style="margin: 0 0 0.5rem; font-size: 1.15rem; font-weight: 600;">🚧 Coming soon</p>
   <p style="margin: 0; font-size: 0.95rem; opacity: 0.85;">Technical posts on machine learning, computational genomics, and the systems around them are in the works.</p>
 </div>
+{% endif %}
 
 {% if site.display_tags and site.display_tags.size > 0 or site.display_categories and site.display_categories.size > 0 %}
 
