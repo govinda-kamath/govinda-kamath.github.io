@@ -4,6 +4,7 @@ title: Reproducible dev environments with Nix and Home Manager
 date: 2026-08-09
 description: How I stopped hand-configuring GCP instances and made my dev environment reproducible with Nix and Home Manager
 slug: reproducible-dev-environments-with-nix
+og_image: /assets/img/blog-nix-banner.png
 tags: machine-learning nix
 categories: nix
 featured: true
