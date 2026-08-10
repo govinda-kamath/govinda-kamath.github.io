@@ -115,6 +115,7 @@ pagination:
     {% else %}
       {% assign postlist = site.posts %}
     {% endif %}
+    {% assign postlist = postlist %}
 
     {% for post in postlist %}
 
@@ -127,6 +128,7 @@ pagination:
     {% assign tags = post.tags | join: "" %}
     {% assign categories = post.categories | join: "" %}
 
+    {% unless post.featured %}
     <li>
 
 {% if post.thumbnail %}
@@ -191,6 +193,7 @@ pagination:
 </div>
 {% endif %}
     </li>
+    {% endunless %}
 
     {% endfor %}
 
