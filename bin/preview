@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+# Preview the site locally with draft posts included and live reload.
+# Drafts (in _drafts/) are NOT deployed by the CI build, so you can edit freely.
+#
+# Usage:
+#   ./bin/preview            # preview with drafts + livereload
+#   ./bin/preview --no-draft # preview only published posts
+set -euo pipefail
+
+# The vendored gems in vendor/ were built against Homebrew's Ruby;
+# rbenv's Ruby fails with a LoadError on native extensions.
+if [ -x /usr/local/opt/ruby/bin/ruby ]; then
+  BUNDLE=/usr/local/opt/ruby/bin/bundle
+else
+  BUNDLE=bundle
+fi
+
+if [[ "${1:-}" == "--no-draft" ]]; then
+  exec "$BUNDLE" exec jekyll serve --livereload
+fi
+
+exec "$BUNDLE" exec jekyll serve --drafts --livereload

@@ -1,0 +1,19 @@
+# Series registry.
+# Each post in a series just sets `series: <id>` and `series_part: <n>` in its
+# front matter; everything else (title, description, links) is derived from here
+# and from the posts themselves. No URLs are hardcoded anywhere.
+#
+#   title:       Display name shown in the series nav box.
+#   description: One-liner shown on the series landing page.
+#   landing:     URL of the series landing page (optional, defaults to /blog/<id>/).
+#
+# Example:
+#   my-series:
+#     title: My Series
+#     description: A tour of something.
+#     landing: /blog/my-series/
+
+gaussian-processes:
+  title: Gaussian Processes
+  description: My notes on Gaussian Processes, as I have been reading the classic book by Rasmussen and Williams [[pdf](http://www.gaussianprocess.org/gpml/chapters/RW.pdf)]. This was a book I had wanted to read for a while, and I finally got around to reading it. The purpose of these notes is mostly to help me digest the material, but I hope these are useful to others as well.
+  landing: /blog/gaussian-processes/

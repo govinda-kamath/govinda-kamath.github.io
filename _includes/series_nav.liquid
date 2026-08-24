@@ -1,0 +1,111 @@
+{% comment %}
+  Series navigation box. Requires the post's front matter to declare:
+
+    series: gaussian-processes   # id of the series (see _data/series.yml)
+    series_part: 2               # position in the series, 1-based
+
+  Include it once at the top of the post for the "Part N of M" context box
+  with a table of contents, and once at the bottom for prev/next links:
+
+    {% include series_nav.liquid %}
+    {% include series_nav.liquid position="bottom" %}
+
+  The nav is injected automatically by the local _layouts/post.liquid override,
+  so posts don't need to include it themselves. Links are resolved from
+  site.posts by series id, so renaming a post or reordering parts never
+  leaves a stale URL.
+{% endcomment %}
+{% assign series_id = page.series %}
+{% if series_id and series_id != "" %}
+  {% assign parts = site.posts | where: "series", series_id | sort: "series_part" %}
+  {% assign total = parts | size %}
+  {% assign idx = -1 %}
+  {% for p in parts %}
+    {% if p.url == page.url %}{% assign idx = forloop.index0 %}{% endif %}
+  {% endfor %}
+
+  {% assign meta = site.data.series[series_id] %}
+  {% assign series_title = meta.title | default: series_id %}
+  {% assign landing = meta.landing %}
+  {% unless landing %}{% assign landing = "/blog/" | append: series_id | append: "/" %}{% endunless %}
+
+  {% if include.position == "bottom" %}
+    {% if idx >= 0 %}
+      {% assign prev_idx = idx | minus: 1 %}
+      {% assign next_idx = idx | plus: 1 %}
+      {% if prev_idx >= 0 %}{% assign prev = parts[prev_idx] %}{% endif %}
+      {% if next_idx < total %}{% assign next = parts[next_idx] %}{% endif %}
+      <div class="series-footer">
+        <span class="series-footer-left">
+          {% if prev %}
+            <a href="{{ prev.url | relative_url }}">&larr; Part {{ prev.series_part }}: {{ prev.title }}</a>
+          {% endif %}
+        </span>
+        <span class="series-footer-center">
+          <a href="{{ landing | relative_url }}">{{ series_title }} (all parts)</a>
+        </span>
+        <span class="series-footer-right">
+          {% if next %}
+            <a href="{{ next.url | relative_url }}">Part {{ next.series_part }}: {{ next.title }} &rarr;</a>
+          {% endif %}
+        </span>
+      </div>
+    {% endif %}
+  {% else %}
+    <div class="series-box">
+      <p class="series-box-header">
+        <a href="{{ landing | relative_url }}">{{ series_title }}</a>
+        &mdash; Part {{ page.series_part }} of {{ total }}
+      </p>
+      <ol class="series-box-toc">
+        {% for p in parts %}
+          <li class="{% if p.url == page.url %}current{% endif %}">
+            {% if p.url == page.url %}
+              {{ p.title }}
+            {% else %}
+              <a href="{{ p.url | relative_url }}">{{ p.title }}</a>
+            {% endif %}
+          </li>
+        {% endfor %}
+      </ol>
+    </div>
+  {% endif %}
+{% endif %}
+
+<style>
+  .series-box {
+    border: 1px solid var(--global-divider-color, #e0e0e0);
+    border-radius: 6px;
+    padding: 0.9rem 1.2rem;
+    margin: 1.2rem 0 2rem;
+    background: var(--global-bg-color, #fff);
+  }
+  .series-box-header {
+    margin: 0 0 0.4rem;
+    font-weight: 600;
+  }
+  .series-box-toc {
+    margin: 0;
+    padding-left: 1.4rem;
+  }
+  .series-box-toc .current {
+    font-weight: 600;
+    list-style-type: disc;
+  }
+  .series-footer {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    border-top: 1px solid var(--global-divider-color, #e0e0e0);
+    margin-top: 2.5rem;
+    padding-top: 1rem;
+    font-size: 0.95rem;
+  }
+  .series-footer-center {
+    text-align: center;
+    white-space: nowrap;
+  }
+  .series-footer-right {
+    text-align: right;
+  }
+</style>
