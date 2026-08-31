@@ -1,18 +1,14 @@
 ---
 layout: post
 title: Gaussian Processes, Part 1 — Regression
-date: 2026-08-20
-description: "The weight-space view: Bayesian linear regression, the MAP estimate via completing the square, and the predictive distribution."
+date: 2026-08-30
+description: "From Bayesian linear regression to Gaussian processes: the weight-space view, the kernel trick, and the function-space view."
 slug: gp-1-regression
 series: gaussian-processes
 series_part: 1
 tags: gaussian-processes machine-learning
 categories: gaussian-processes
 ---
-
-> Draft. The series front matter (`series`, `series_part`) drives the nav box at
-> the top of this page, the prev/next footer at the bottom, and the landing page
-> at [/blog/gaussian-processes/](/blog/gaussian-processes/).
 
 I have been reading the classical book on Gaussian Processes by Rasmussen and Williams
 [[pdf](http://www.gaussianprocess.org/gpml/chapters/RW.pdf)] over the last few weekends. I
@@ -523,11 +519,3 @@ $$
 \end{align*}
 $$
 
-<!--
-  Publishing checklist:
-  1. Move to _posts/ and pick the publish date in the filename:
-       mv _drafts/gp-1-why-gaussian-processes.md _posts/2026-08-20-why-gaussian-processes.md
-     (keep the `slug:` front matter so the URL /blog/2026/gp-1-why-gaussian-processes/ stays stable)
-  2. Preview: ./bin/preview  →  http://localhost:4000
-  3. Push to master when happy — GitHub Actions deploys.
--->
