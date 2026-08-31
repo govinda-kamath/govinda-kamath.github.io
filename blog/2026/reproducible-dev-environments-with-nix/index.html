@@ -38,6 +38,15 @@
   .post-content h3::before {
     content: counter(section) "." counter(subsection) ".\00a0";
   }
+
+  /* The theme sets overflow-x:auto on display math; per the CSS spec that makes
+     overflow-y compute to auto too, and MathJax's hidden accessibility MathML
+     (mjx-assistive-mml) inflates scrollHeight ~10x, so every equation shows a
+     phantom vertical scrollbar. Keep horizontal scroll for wide equations, but
+     kill the vertical one. */
+  mjx-container[jax="CHTML"][display="true"] {
+    overflow-y: hidden;
+  }
 </style> <div class="post"> <header class="post-header"> <h1 class="post-title">Reproducible dev environments with Nix and Home Manager</h1> <p class="post-meta"> Created on August 09, 2026 </p> <p class="post-tags"> <a href="/blog/2026"> <i class="fa-solid fa-calendar fa-sm"></i> 2026 </a>   ·   <a href="/blog/tag/machine-learning"> <i class="fa-solid fa-hashtag fa-sm"></i> machine-learning</a>   <a href="/blog/tag/nix"> <i class="fa-solid fa-hashtag fa-sm"></i> nix</a>   ·   <a href="/blog/category/nix"> <i class="fa-solid fa-tag fa-sm"></i> nix</a> </p> </header> <style>
   .series-box {
     border: 1px solid var(--global-divider-color, #e0e0e0);
@@ -120,7 +129,7 @@ nix run <span class="nt">--impure</span> .#homeConfigurations.x86_64-linux.activ
   .series-footer-right {
     text-align: right;
   }
-</style> </div> </div> <footer class="fixed-bottom" role="contentinfo"> <div class="container mt-0"> <div class="social-footer"> <div class="contact-icons"> <a href="/assets/pdf/GK_CV.pdf" title="Cv pdf"><i class="ai ai-cv"></i></a> <a href="mailto:govinda.kamath@gmail.com" title="Email"><i class="fa-solid fa-envelope"></i></a> <a href="/feed.xml" title="Rss icon"><i class="fa-solid fa-square-rss"></i></a> <a href="https://scholar.google.com/citations?user=UztDgakAAAAJ" title="Scholar userid" rel="external nofollow noopener" target="_blank"><i class="ai ai-google-scholar"></i></a> <a href="https://github.com/govinda-kamath" title="Github username" rel="external nofollow noopener" target="_blank"><i class="fa-brands fa-github"></i></a> <a href="https://www.linkedin.com/in/govinda-k-805b191b" title="Linkedin username" rel="external nofollow noopener" target="_blank"><i class="fa-brands fa-linkedin"></i></a> <a href="https://twitter.com/govikamath" title="X username" rel="external nofollow noopener" target="_blank"><i class="fa-brands fa-x-twitter"></i></a> </div> </div> © Copyright 2026 Govinda M. Kamath. Powered by <a href="https://jekyllrb.com/" target="_blank" rel="external nofollow noopener">Jekyll</a> with <a href="https://github.com/alshedivat/al-folio" rel="external nofollow noopener" target="_blank">al-folio</a> theme. Hosted by <a href="https://pages.github.com/" target="_blank" rel="external nofollow noopener">GitHub Pages</a>. Last updated: August 24, 2026. </div> </footer> <style>
+</style> </div> </div> <footer class="fixed-bottom" role="contentinfo"> <div class="container mt-0"> <div class="social-footer"> <div class="contact-icons"> <a href="/assets/pdf/GK_CV.pdf" title="Cv pdf"><i class="ai ai-cv"></i></a> <a href="mailto:govinda.kamath@gmail.com" title="Email"><i class="fa-solid fa-envelope"></i></a> <a href="/feed.xml" title="Rss icon"><i class="fa-solid fa-square-rss"></i></a> <a href="https://scholar.google.com/citations?user=UztDgakAAAAJ" title="Scholar userid" rel="external nofollow noopener" target="_blank"><i class="ai ai-google-scholar"></i></a> <a href="https://github.com/govinda-kamath" title="Github username" rel="external nofollow noopener" target="_blank"><i class="fa-brands fa-github"></i></a> <a href="https://www.linkedin.com/in/govinda-k-805b191b" title="Linkedin username" rel="external nofollow noopener" target="_blank"><i class="fa-brands fa-linkedin"></i></a> <a href="https://twitter.com/govikamath" title="X username" rel="external nofollow noopener" target="_blank"><i class="fa-brands fa-x-twitter"></i></a> </div> </div> © Copyright 2026 Govinda M. Kamath. Powered by <a href="https://jekyllrb.com/" target="_blank" rel="external nofollow noopener">Jekyll</a> with <a href="https://github.com/alshedivat/al-folio" rel="external nofollow noopener" target="_blank">al-folio</a> theme. Hosted by <a href="https://pages.github.com/" target="_blank" rel="external nofollow noopener">GitHub Pages</a>. Last updated: August 31, 2026. </div> </footer> <style>
   .social-footer {
     text-align: center;
     padding-top: 2px;
