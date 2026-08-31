@@ -234,9 +234,9 @@ To take a closer look at the prediction let us start with some matrix algebra to
 
 $$
 \begin{align*}
-\frac{1}{\sigma_n^2} X \left[X^\top \Sigma_p X + \sigma_n^2 I\right] &= \frac{1}{{\sigma_n^2}} X X^\top \Sigma_p X + X,\\
-&= \left[\frac{1}{{\sigma_n^2}} X X^\top \Sigma_p + I \right] X, \\
-&= \left[\frac{1}{{\sigma_n^2}} X X^\top  + \Sigma_p^{-1} \right]\Sigma_p X,\\
+\frac{1}{\sigma_n^2} X \left[X^\top \Sigma_p X + \sigma_n^2 I\right] &= \frac{1}{\sigma_n^2} X X^\top \Sigma_p X + X,\\
+&= \left[\frac{1}{\sigma_n^2} X X^\top \Sigma_p + I \right] X, \\
+&= \left[\frac{1}{\sigma_n^2} X X^\top  + \Sigma_p^{-1} \right]\Sigma_p X,\\
 &= A \Sigma_p X, \\
 \implies A^{-1} \frac{1}{\sigma_n^2} X \left[X^\top \Sigma_p X + \sigma_n^2 I\right] &= \Sigma_p X, \\
 \implies \frac{1}{\sigma_n^2} A^{-1} X \left[X^\top \Sigma_p X + \sigma_n^2 I\right] &= \Sigma_p X, \\
@@ -332,10 +332,8 @@ $$\mathbf{x}_{\ast}$$. From eq. \eqref{eq:final-predictive-distribution}, it fol
 
 $$
 \begin{align}
-\mathbf{f}_{\ast} \mid \phi_\ast, \Phi, \mathbf{y} &\sim \mathcal{N}\left(
-\phi_\ast^\top \Sigma_p \Phi \left[\sigma_n^2 I + K \right]^{-1} \mathbf{y}, 
-\phi_\ast^\top \Sigma_p \Phi \left[ \sigma_n^2 I + K \right]^{-1} \Phi^\top \Sigma_p \phi_\ast
-\right),
+\mathbb{E}[\mathbf{f}_{\ast} \mid \phi_\ast, \Phi, \mathbf{y}] &= \phi_\ast^\top \Sigma_p \Phi \left[\sigma_n^2 I + K \right]^{-1} \mathbf{y}, \nonumber\\
+\text{Cov}[\mathbf{f}_{\ast} \mid \phi_\ast, \Phi, \mathbf{y}] &= \phi_\ast^\top \Sigma_p \Phi \left[ \sigma_n^2 I + K \right]^{-1} \Phi^\top \Sigma_p \phi_\ast, \nonumber
 \end{align}
 $$
 
@@ -361,10 +359,8 @@ We can then write the predictive distribution as
 
 $$
 \begin{align}
-\mathbf{f}_{\ast} \mid \phi_\ast, \Phi, \mathbf{y} &\sim \mathcal{N}\left(
-k(\mathbf{x}_{\ast}, X) \left[\sigma_n^2 I + k(X,X) \right]^{-1} \mathbf{y}, 
-k(\mathbf{x}_{\ast}, X) \left[ \sigma_n^2 I + k(X,X) \right]^{-1} k(X, \mathbf{x}_{\ast})
-\right)
+\mathbb{E}[\mathbf{f}_{\ast} \mid \phi_\ast, \Phi, \mathbf{y}] &= k(\mathbf{x}_{\ast}, X) \left[\sigma_n^2 I + k(X,X) \right]^{-1} \mathbf{y}, \nonumber\\
+\text{Cov}[\mathbf{f}_{\ast} \mid \phi_\ast, \Phi, \mathbf{y}] &= k(\mathbf{x}_{\ast}, X) \left[ \sigma_n^2 I + k(X,X) \right]^{-1} k(X, \mathbf{x}_{\ast}), \nonumber
 \end{align}
 $$
 
@@ -383,7 +379,149 @@ infinite dimensional as we shall see.
 
 ## Feature-Space View
 
-An alternative view of our development in the previous section would be to 
+An alternative view of our development in the previous section would be to view Gaussian Processes
+as fitting functions. To begin, we define a _Gaussian Process_.
+
+**Gaussian Process:** A Gaussian process is a collection of random variables, any finite number
+of which are jointly Gaussian distributed.
+
+Since Gaussians are completely specified by their mean and covariance, a Gaussian process is
+completely specified by its mean and covariance function. That is
+
+$$
+\begin{align*}
+f(\mathbf{x}) \sim \mathcal{GP}(m(\mathbf{x}), k(\mathbf{x}, \mathbf{x}')),
+\end{align*}
+$$
+
+if 
+
+$$
+\begin{align}
+m(\mathbf{x}) &= \mathbb{E}[f(\mathbf{x})], \\
+k(\mathbf{x}, \mathbf{x}') &= \mathbb{E}[(f(\mathbf{x})-m(\mathbf{x}))(f(\mathbf{x}')-m(\mathbf{x}')) ]
+\end{align}
+$$
+
+**Example:** A simple example of a Gaussian process is 
+
+$$
+\begin{align*}
+f(\mathbf{x}) = \phi(\mathbf{x})^\top \mathbf{w},
+\end{align*}
+$$
+
+for $$\mathbf{x} \in \mathbb{R}^{D}$$, $$\phi : \mathbb{R}^{D} \rightarrow \mathbb{R}^{N}$$, and
+$$\mathbf{w} \sim \mathcal{N}(0, \Sigma_p)$$, for some covariance matrix $$\Sigma_p \in \mathbb{R}^{N \times N}$$.
+For this setup, we end up having that,
+
+$$
+\begin{align*}
+m(\mathbf{x}) &= \mathbb{E}[f(\mathbf{x})] = \mathbf{0}, \\
+k(\mathbf{x}, \mathbf{x}') &= \mathbb{E}[(f(\mathbf{x})-m(\mathbf{x}))(f(\mathbf{x}')-m(\mathbf{x}')) ] = \phi(\mathbf{x})^\top\Sigma_p\phi(\mathbf{x}),
+\end{align*}
+$$
+
+We note that, for points $$\mathbf{x}_1, \cdots, \mathbf{x}_n$$, written compactly as a matrix $$X \in \mathbb{R}^{D \times n}$$,
+we have that $$f(X) \sim \mathcal{N}(0, \phi(X)^\top \Sigma_p \phi(X))$$, overloading $$f$$ and $$\phi$$ to work in the 
+vector case in the expected manner. We note that if $$n > N$$, the covariance matrix has 
+a rank of at most $$N < n$$, and thus the Gaussian distribution is degenerate.
+
+We note that $$\mathbf{x}$$ is often used for time in modelling, but need not be. In some modelling
+problems, it is actually a high dimensional variable. 
+
+One commonly used covariance function is the _squared exponential_, which is
+
+$$
+\begin{align}
+k (\mathbf{x}_p, \mathbf{x}_q) &= \sigma_f^2 \exp\left( -\frac{1}{2 \ell^2} \|\mathbf{x}_p-\mathbf{x}_q\|_2^2 \right),
+\end{align}
+$$
+
+where $$\sigma_f$$ and $$\ell$$ are hyperparameters. We note that this covariance is $$\sigma_f^2$$ when
+$$\mathbf{x}_p=\mathbf{x}_q$$, making $$\sigma_f^2$$ to be the signal variance. The covariance decays as the
+distance between $$\mathbf{x}_p$$ and $$\mathbf{x}_q$$ increases, but that is determined by the length scale 
+$$\ell$$.
+
+For most of the next discussion we assume $$m(\mathbf{x})=\mathbf{0}$$.
+
+### Prediction with noise-free observations
+
+We first consider the case where we have noiseless observations. That is we observe 
+$$n$$ points: 
+$$\{ (\mathbf{x}_i, f_i) \mid i = 1, 2, \cdots, n \}$$. Let us be interested in 
+predicting the value at $$n_*$$ points -- $$\mathbf{x}_{i*}, 1 \le i \le n_*$$. 
+We want to predict $$\mathbf{f}_* = (f_{1*}, f_{2*}, \cdots, f_{n_*})$$.
+
+We have that 
+
+$$
+\begin{align}
+\begin{bmatrix} \mathbf{f}, \\ \mathbf{f}_* \end{bmatrix} &\sim \mathcal{N} \left(\mathbf{0}, 
+ \begin{bmatrix} K(X, X) \quad K(X, X_*) \\ K(X_*, X) \quad K(X_*, X_*) \end{bmatrix} \right),
+\end{align}
+$$
+
+where $$K(X, X_*)$$ is the $$n \times n_*$$ matrix of covariance between the $$n$$
+training points and $$n_*$$ test points; and similarly $$K(X, X)$$,
+$$K(X_*, X)$$ and $$K(X_*, X_*)$$. From eq. \eqref{eq:final-predictive-distribution}, 
+we have that, 
+
+$$ 
+\begin{align}
+\mathbf{f}_* | X_*, X, \mathbf{f} &\sim \mathcal{N} \left( K(X_*, X)K(X, X)^{-1}\mathbf{f}, K(X_*, X_*) - K(X_*, X)K(X, X)^{-1}K(X, X_*)  \right)
+\end{align}
+$$
+
+### Prediction from noisy observations
+
+We model noisy observations by modelling the covariance matrix as 
+
+$$
+\begin{align}
+\text{Cov}(y_p, y_q) &= k(\mathbf{x}_p, \mathbf{x}_q) + \sigma_n^2\delta_{p,q},\\
+\text{Cov}(\mathbf{y}) &= K(X, X) + \sigma_n^2 I
+\end{align}
+$$
+
+This gives us that
+
+$$
+\begin{align}
+\begin{bmatrix} \mathbf{y}, \\ \mathbf{f}_* \end{bmatrix} &\sim \mathcal{N} \left(\mathbf{0}, 
+ \begin{bmatrix} K(X, X) + \sigma_n^2 I & K(X, X_*) \\ K(X_*, X) & K(X_*, X_*) \end{bmatrix} \right),
+\end{align}
+$$
+
+which gives us that 
+
+$$ 
+\begin{align}
+\mathbf{f}_* | X_*, X, \mathbf{y} &\sim \mathcal{N} \left( K(X_*, X)\left[K(X, X) + \sigma_n^2 I \right]^{-1}\mathbf{y}, K(X_*, X_*) - K(X_*, X)\left[K(X, X) + \sigma_n^2 I \right]^{-1}K(X, X_*)  \right)
+\end{align}
+$$
+
+In the special case where we are only predicting for one point $$\mathbf{x}_*$$, writing
+$$\mathbf{k}_* = k(\mathbf{x}_*) = K(X,\mathbf{x}_*)$$, we have that the predicted value is
+
+$$
+\begin{align}
+\hat{f}(\mathbf{x}_*) &= \mathbf{k}_*^\top\left[K(X, X) + \sigma_n^2 I \right]^{-1}\mathbf{y},\\
+&= \sum_{i=1}^n \alpha_i k(\mathbf{x}_i, \mathbf{x}_*),
+\end{align}
+$$
+
+where $$\mathbf{\alpha}=\left[K(X, X) + \sigma_n^2 I \right]^{-1}\mathbf{y}$$. This gives us that 
+the predicted value for a test point is a weighted linear combination of the inner products of the 
+test point and each training point. 
+
+It is easy to see that the variance of the predictor is
+
+$$
+\begin{align*}
+\text{Var}\left[\hat{f}(\mathbf{x}_*)\right] = k(\mathbf{x}_*, \mathbf{x}_*) - \mathbf{k}_*^\top\left[K(X, X) + \sigma_n^2 I \right]^{-1}\mathbf{k}_*.
+\end{align*}
+$$
 
 <!--
   Publishing checklist:

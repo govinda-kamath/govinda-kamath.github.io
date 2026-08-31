@@ -35,6 +35,15 @@ layout: default
   .post-content h3::before {
     content: counter(section) "." counter(subsection) ".\00a0";
   }
+
+  /* The theme sets overflow-x:auto on display math; per the CSS spec that makes
+     overflow-y compute to auto too, and MathJax's hidden accessibility MathML
+     (mjx-assistive-mml) inflates scrollHeight ~10x, so every equation shows a
+     phantom vertical scrollbar. Keep horizontal scroll for wide equations, but
+     kill the vertical one. */
+  mjx-container[jax="CHTML"][display="true"] {
+    overflow-y: hidden;
+  }
 </style>
 
 <div class="post">
