@@ -1,0 +1,321 @@
+<!DOCTYPE html> <html lang="en"> <head> <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> <meta charset="utf-8"> <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> <meta http-equiv="X-UA-Compatible" content="IE=edge"> <title> Gaussian Processes, Part 1 — Regression | Govinda M. Kamath </title> <meta name="author" content="Govinda M. Kamath"> <meta name="description" content="From Bayesian linear regression to Gaussian processes: the weight-space view, the kernel trick, and the function-space view."> <meta name="keywords" content="machine-learning, computational-genomics, single-cell, spatial-transcriptomics, information-theory"> <meta property="og:site_name" content="Govinda M. Kamath"> <meta property="og:type" content="article"> <meta property="og:title" content="Govinda M. Kamath | Gaussian Processes, Part 1 — Regression"> <meta property="og:url" content="https://govinda-kamath.github.io/blog/2026/gp-1-regression/"> <meta property="og:description" content="From Bayesian linear regression to Gaussian processes: the weight-space view, the kernel trick, and the function-space view."> <meta property="og:image" content="https://govinda-kamath.github.io/assets/img/prof_pic.jpg"> <meta property="og:locale" content="en"> <meta name="twitter:card" content="summary"> <meta name="twitter:title" content="Gaussian Processes, Part 1 — Regression"> <meta name="twitter:description" content="From Bayesian linear regression to Gaussian processes: the weight-space view, the kernel trick, and the function-space view."> <meta name="twitter:image" content="https://govinda-kamath.github.io/assets/img/prof_pic.jpg"> <script type="application/ld+json">
+    {
+        "author":
+        {
+            "@type": "Person",
+            "name": "Govinda M. Kamath"
+        },
+        "url": "https://govinda-kamath.github.io/blog/2026/gp-1-regression/",
+        "@type": "BlogPosting",
+        "description": "From Bayesian linear regression to Gaussian processes: the weight-space view, the kernel trick, and the function-space view.",
+        "headline": "Gaussian Processes, Part 1 — Regression",
+        
+        "sameAs": [null,"https://scholar.google.com/citations?user=UztDgakAAAAJ","https://github.com/govinda-kamath","https://www.linkedin.com/in/govinda-k-805b191b","https://twitter.com/govikamath"],
+        
+        "name": "Govinda M. Kamath",
+        "@context": "https://schema.org"
+    }
+  </script> <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https:; style-src 'self' 'unsafe-inline' https:; img-src 'self' data: https:; font-src 'self' data: https:; media-src 'self' https:; frame-src 'self' https:; connect-src 'self' https:;"> <style>
+  :root {
+    --max-content-width: 930px;
+  }
+</style> <link rel="stylesheet" href="/assets/css/tailwind.css?v=50c64c15cbb9fd1ce6056fdb8bcb4b62"> <link defer rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.2.0/css/all.min.css" integrity="sha256-MVopmdyC2tYTiJ8wlktf0uh0v4NgT+vNdyVFepi7Q0c=" crossorigin="anonymous"> <link defer rel="stylesheet" href="https://cdn.jsdelivr.net/npm/academicons@1.9.5/css/academicons.min.css" integrity="sha256-SzrCOBJbGVFMahewkgjwnApaV2+av1DwMAA+/QGLyZw=" crossorigin="anonymous"> <link defer rel="stylesheet" href="https://cdn.jsdelivr.net/npm/scholar-icons@1.0.3/css/scholar-icons.css" integrity="sha256-VY3hHVj/hNX3fYG6wtbA6TcKJQl7+FthzGSyIB64klY=" crossorigin="anonymous"> <link defer rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:100,300,400,500,700|Material+Icons&amp;display=swap"> <link defer rel="stylesheet" href="/assets/css/jekyll-pygments-themes-github.css?v=591dab5a4e56573bf4ef7fd332894c99" media="" id="highlight_theme_light"> <link rel="shortcut icon" href="/assets/img/favicon.png?v=cf4701937ca56fb0a62056d6b65dfb49"> <link rel="stylesheet" href="/assets/css/main.css?v=b7e280e57e2bc547c94fb59c914ff711"> <link rel="canonical" href="https://govinda-kamath.github.io/blog/2026/gp-1-regression/"> <script src="/assets/js/theme.js?v=7af685e2ba20b37fef545c97b8064050"></script> <link defer rel="stylesheet" href="/assets/css/jekyll-pygments-themes-native.css?v=5847e5ed4a4568527aa6cfab446049ca" media="none" id="highlight_theme_dark"> <script>
+    initTheme();
+  </script> </head> <body class="fixed-top-nav "> <header> <nav id="navbar" class="navbar navbar-light navbar-expand-sm fixed-top" role="navigation"> <div class="container"> <a class="navbar-brand title font-weight-lighter" href="/"> <span class="font-weight-bold">Govinda</span> M. Kamath </a> <button class="navbar-toggler collapsed navbar-toggler-main" type="button" data-nav-toggle="navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar top-bar"></span> <span class="icon-bar middle-bar"></span> <span class="icon-bar bottom-bar"></span> </button> <div class="collapse navbar-collapse navbar-collapse-main" id="navbarNav"> <ul class="navbar-nav navbar-menu-list flex-nowrap"> <li class="nav-item "> <a class="nav-link" href="/">about </a> </li> <li class="nav-item active"> <a class="nav-link" href="/blog/">blog </a> </li> <li class="nav-item "> <a class="nav-link" href="/publications/">publications </a> </li> <li class="nav-item "> <a class="nav-link" href="/research/">research </a> </li> <li class="nav-item "> <a class="nav-link" href="/teaching/">teaching </a> </li> <li class="nav-item "> <a class="nav-link" href="/cv/">CV </a> </li> <li class="nav-item"> <button id="search-toggle" type="button" title="Search" aria-label="Open search"> <span class="nav-link">ctrl k <i class="fa-solid fa-magnifying-glass"></i></span> </button> </li> <li class="toggle-container"> <button id="light-toggle" type="button" title="Change theme" aria-label="Change color theme"> <i class="fa-half-sun-moon" id="light-toggle-system"></i> <i class="fa-solid fa-moon" id="light-toggle-dark"></i> <i class="fa-solid fa-sun" id="light-toggle-light"></i> </button> </li> </ul> </div> </div> </nav> <progress id="progress" value="0"> <div class="progress-container"> <span class="progress-bar"></span> </div> </progress> </header> <div class="container mt-5" role="main"> <style type="text/css">
+  .post-content {
+    counter-reset: section;
+  }
+  .post-content h2 {
+    counter-reset: subsection;
+    counter-increment: section;
+  }
+  .post-content h2::before {
+    content: counter(section) ".\00a0";
+  }
+  .post-content h3 {
+    counter-increment: subsection;
+  }
+  .post-content h3::before {
+    content: counter(section) "." counter(subsection) ".\00a0";
+  }
+
+  /* The theme sets overflow-x:auto on display math; per the CSS spec that makes
+     overflow-y compute to auto too, and MathJax's hidden accessibility MathML
+     (mjx-assistive-mml) inflates scrollHeight ~10x, so every equation shows a
+     phantom vertical scrollbar. Keep horizontal scroll for wide equations, but
+     kill the vertical one. */
+  mjx-container[jax="CHTML"][display="true"] {
+    overflow-y: hidden;
+  }
+</style> <div class="post"> <header class="post-header"> <h1 class="post-title">Gaussian Processes, Part 1 — Regression</h1> <p class="post-meta"> Created on August 30, 2026 </p> <p class="post-tags"> <a href="/blog/2026"> <i class="fa-solid fa-calendar fa-sm"></i> 2026 </a>   ·   <a href="/blog/tag/gaussian-processes"> <i class="fa-solid fa-hashtag fa-sm"></i> gaussian-processes</a>   <a href="/blog/tag/machine-learning"> <i class="fa-solid fa-hashtag fa-sm"></i> machine-learning</a>   ·   <a href="/blog/category/gaussian-processes"> <i class="fa-solid fa-tag fa-sm"></i> gaussian-processes</a> </p> </header> <div class="series-box"> <p class="series-box-header"> <a href="/blog/gaussian-processes/">Gaussian Processes</a> — Part 1 of 1 </p> <ol class="series-box-toc"> <li class="current"> Gaussian Processes, Part 1 — Regression </li> </ol> </div> <style>
+  .series-box {
+    border: 1px solid var(--global-divider-color, #e0e0e0);
+    border-radius: 6px;
+    padding: 0.9rem 1.2rem;
+    margin: 1.2rem 0 2rem;
+    background: var(--global-bg-color, #fff);
+  }
+  .series-box-header {
+    margin: 0 0 0.4rem;
+    font-weight: 600;
+  }
+  .series-box-toc {
+    margin: 0;
+    padding-left: 1.4rem;
+  }
+  .series-box-toc .current {
+    font-weight: 600;
+    list-style-type: disc;
+  }
+  .series-footer {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    border-top: 1px solid var(--global-divider-color, #e0e0e0);
+    margin-top: 2.5rem;
+    padding-top: 1rem;
+    font-size: 0.95rem;
+  }
+  .series-footer-center {
+    text-align: center;
+    white-space: nowrap;
+  }
+  .series-footer-right {
+    text-align: right;
+  }
+</style> <article class="post-content"> <div id="markdown-content"> <p>I have been reading the classical book on Gaussian Processes by Rasmussen and Williams [<a href="http://www.gaussianprocess.org/gpml/chapters/RW.pdf" rel="external nofollow noopener" target="_blank">pdf</a>] over the last few weekends. I had meant to read this for a long time and only could get to it now. I am thus jotting down my notes here as I started this blog recently. The main purpose of this is to help me digest the material, but hopefully it will be useful to others as well.</p> <p>A Gaussian Process is usually thought of as defining a distribution over functions, where we can think of inference taking place directly over the space of functions. However to start off we start with the more basic view of Gaussians – the <em>weight space</em> view of Gaussians (as opposed to the <em>function space</em> view) to build some intuition.</p> <h2 id="weight-space-view">Weight-Space View</h2> <p>We start with a simple linear regression model</p> <h3 id="the-standard-linear-model">The Standard Linear Model</h3> <p><strong>The setup</strong>: Let us assume we have a training set $\mathcal{D}$ of $n$ variables,</p> \[\begin{align} \mathcal{D} = \{ (\mathbf{x}_i, y_i) | i=1,\cdots,n \}, \end{align}\] <p>where $\mathbf{x}_i \in \mathbb{R}^D$ are $D$ dimensional covariates and $y_i \in \mathbb{R}$ is a scalar output or target variable. More compactly, we can represent</p> \[\begin{align*} X &amp;= [\mathbf{x}_1, \mathbf{x}_2, \cdots, \mathbf{x}_n] \in \mathbb{R}^{D \times n},\\ y &amp;= (y_1, y_2, \cdots, y_n)^{\top} \in \mathbb{R}^n, \end{align*}\] <p>and thus represent the data as</p> \[\begin{align*} \mathcal{D} &amp;= (X,y) \end{align*}\] <p>The standard linear model then can be stated as</p> \[\begin{align*} f(\mathbf{x}_i) &amp;= \mathbf{x}_i^{\top}\mathbf{w}, \text{ for some } \mathbf{w} \in \mathbb{R}^D,\\ y_i &amp;= f(\mathbf{x}_i) + \varepsilon, \text{ where}, \\ \varepsilon &amp;\sim \mathcal{N}(0, \sigma_n^2), \text{ for some variance }\sigma_n^2 \end{align*}\] <p>More compactly, overloading the definition of $f$ to the vector case, we have that</p> \[\begin{align} \mathbf{y} &amp;= f(X) + \varepsilon = X^\top\mathbf{w} + \varepsilon, \end{align}\] <p>where $\varepsilon \sim \mathcal{N}(0, \sigma_n^2 I)$.</p> <p>This definition now directly gives us that</p> \[\begin{align} \mathbf{y} \big| X, \mathbf{w} &amp;\sim \mathcal{N}(X^\top \mathbf{w}, \sigma_n^2 I), \label{eq:raw-y-likelihood}\\ \implies p\left(\mathbf{y} \big| X, \mathbf{w}\right) &amp;= \frac{1}{(2 \pi \sigma_n^2)^{\frac{n}{2}}} \exp\left( - \frac{1}{2 \sigma_n^2} \|\mathbf{y} -X^\top \mathbf{w} \|^2 \right ) \nonumber \end{align}\] <p>To start off our exploration, we place a prior on $\mathbf{w}$. The natural choice is</p> \[\begin{align} \mathbf{w} &amp;\sim \mathcal{N}(0, \Sigma_p), \label{eq:w-prior} \end{align}\] <p>for some $\Sigma_p \in \mathbb{R}^{D \times D}$.</p> <p>The first order of business is to determine the <em>maximum a posteriori</em> (MAP) estimate of $\mathbf{w} \mid X, \mathbf{y}$. To do this we start by noting that, as $(\mathbf{y}, \mathbf{w}) \mid X$ is jointly Gaussian, and thus $\mathbf{w} \mid X, \mathbf{y}$ is Gaussian because conditional distributions of jointly Gaussian random variables are also Gaussian [<a href="https://en.wikipedia.org/wiki/Multivariate_normal_distribution#Conditional_distributions" rel="external nofollow noopener" target="_blank">wiki</a>]. Then we proceed by noting that,</p> \[\begin{align*} p(\mathbf{w} | X, \mathbf{y}) &amp;= \frac{p(\mathbf{w},\mathbf{y} | X)}{p (\mathbf{y} | X)}, \\ &amp;= \frac{p(\mathbf{y} | \mathbf{w}, X) p (\mathbf{w}| X)}{p (\mathbf{y} | X)},\\ &amp;\overset{(a)}{=} \frac{p(\mathbf{y} | \mathbf{w}) p (\mathbf{w})}{p (\mathbf{y} | X)},\\ &amp;\overset{(b)}{\propto} p(\mathbf{y} | \mathbf{w}) p (\mathbf{w}) \end{align*}\] <p>where $(a)$ follows from the fact that conditioned on $\mathbf{w}$, $\mathbf{y}$ is independent of $X$, and that $\mathbf{w}$ is independent of $X$. $(b)$ follows from dropping the denominator as it is independent of $\mathbf{w}$.</p> <h4 id="completing-the-square-to-determine-gaussian-distributions">Completing the square to determine Gaussian distributions</h4> <p>One trick we will return to again and again is completing the square to determine Gaussian distributions. The idea: if we know a random variable is Gaussian, we only need to match the quadratic and linear terms in the exponent of its density — the quadratic term gives the precision matrix and the linear term gives the mean.</p> <p>That is, if we have that $\mathbf{w} \sim \mathcal{N} (\bar{\mathbf{w}}, A_{w})$.</p> \[\begin{align} p(\mathbf{w}) &amp;\propto \exp\left( - \frac{1}{2}(\mathbf{w}-\bar{\mathbf{w}})^\top A_{w}^{-1} (\mathbf{w}-\bar{\mathbf{w}})\right), \nonumber \\ &amp;= \exp\left(-\frac{1}{2} \mathbf{w}^\top A_{w}^{-1} \mathbf{w} + \mathbf{w}^\top A_{w}^{-1} \bar{\mathbf{w}} - \frac{1}{2} \bar{\mathbf{w}}^\top A_{w}^{-1} \bar{\mathbf{w}} \right), \nonumber \\ &amp;\propto \exp\left(-\frac{1}{2} \mathbf{w}^\top A_{w}^{-1} \mathbf{w} + \mathbf{w}^\top A_{w}^{-1} \bar{\mathbf{w}} \right) \label{eq:complete-square} \end{align}\] <p>If we can get the quadratic and linear terms in $\mathbf{w}$ of the exponential, we can then match terms to get the whole Gaussian distribution.</p> <p>Let us see this trick in action to determine $p(\mathbf{w} \mid X, \mathbf{y})$. We have that,</p> \[\begin{align} p(\mathbf{w} | X, \mathbf{y}) &amp;\propto p(\mathbf{y} | \mathbf{w}) p (\mathbf{w}), \\ &amp;\overset{(a)}{\propto} \exp\left( - \frac{1}{2 \sigma_n^2} \|\mathbf{y} -X^\top \mathbf{w} \|^2 \right ) \exp \left( -\frac{1}{2} \mathbf{w}^\top \Sigma_p^{-1} \mathbf{w}\right), \nonumber\\ &amp;= \exp \left( -\frac{1}{2} \mathbf{w}^\top \left[ \frac{1}{\sigma_n^2} XX^\top + \Sigma_p^{-1} \right] \mathbf{w} + \frac{1}{\sigma_n^2} \mathbf{w}^\top X \mathbf{y} - \frac{1}{\sigma_n^2} \mathbf{y}^\top \mathbf{y} \right),\nonumber\\ &amp;\propto \exp \left( -\frac{1}{2} \mathbf{w}^\top \left[ \frac{1}{\sigma_n^2} XX^\top + \Sigma_p^{-1} \right] \mathbf{w} + \frac{1}{\sigma_n^2} \mathbf{w}^\top X \mathbf{y} \right) \label{eq:map-complete-square} \end{align}\] <p>where $(a)$ follows from \eqref{eq:raw-y-likelihood} and \eqref{eq:w-prior}. Now comparing quadratic terms of eq. \eqref{eq:complete-square} and eq. \eqref{eq:map-complete-square}, we have that</p> \[\begin{align} A_w^{-1} &amp;= \left[ \frac{1}{\sigma_n^2} XX^\top + \Sigma_p^{-1} \right] := A, \\ \end{align}\] <p>giving us the covariance matrix. Comparing the linear terms we have that</p> \[\begin{align} A \bar{\mathbf{w}} &amp;= \frac{1}{\sigma_n^2} X \mathbf{y}, \nonumber\\ \implies \bar{\mathbf{w}} &amp;= \frac{1}{\sigma_n^2} A^{-1} X \mathbf{y}. \end{align}\] <p>This gives us that</p> \[\begin{align} \mathbf{w} \mid X, \mathbf{y} &amp;\sim \mathcal{N}\left(\frac{1}{\sigma_n^2} A^{-1} X \mathbf{y}, A^{-1}\right),\label{eq:map-w} \end{align}\] <p>with $A = \frac{1}{\sigma_n^2} XX^\top + \Sigma_p^{-1}$ giving us the MAP estimate of $\mathbf{w}$ conditioned on the data $\mathcal{D}$.</p> <p>One point to note is that if $\Sigma_p$ were the identity matrix, then the MAP estimate would be \(\frac{1}{\sigma_n^2} \left[\frac{1}{\sigma_n^2} XX^\top + I \right]^{-1} X \mathbf{y} = \left[ XX^\top + \sigma_n^2 I \right]^{-1} X \mathbf{y}\), which would be the estimate we would get with the standard <a href="https://en.wikipedia.org/wiki/Ridge_regression" rel="external nofollow noopener" target="_blank">ridge regression</a>. In fact this corresponds exactly to having weighted ridge regression with weights \(\Sigma_p^{-1}\).</p> <p>Next consider the case where we have a new data point \(\mathbf{x}_{\ast}\). We want to predict \(\mathbf{f}_{\ast} = \mathbf{x}_{\ast}^\top\mathbf{w}\). We note that \(\mathbf{f}_{\ast} \mid \mathbf{x}_{\ast}, X, \mathbf{y}\) is Gaussian because \(\mathbf{f}_{\ast}\) is a linear combination of \(\mathbf{w}\) and \(\mathbf{w} \mid X, \mathbf{y}\) is a Gaussian given by eq. \eqref{eq:map-w}.</p> <p>Thus we have that,</p> \[\begin{align} \mathbb{E}[\mathbf{f}_{\ast} \mid \mathbf{x}_{\ast}, X, \mathbf{y}] &amp;= \mathbb{E}[\mathbf{x}_{\ast}^\top\mathbf{w} \mid \mathbf{x}_{\ast}, X, \mathbf{y}], \nonumber \\ &amp;\overset{(a)}{=} \mathbf{x}_{\ast}^\top \mathbb{E}[\mathbf{w} \mid \mathbf{x}_{\ast}, X, \mathbf{y}], \nonumber \\ &amp;\overset{(b)}{=} \frac{1}{\sigma_n^2} \mathbf{x}_{\ast}^\top A^{-1} X \mathbf{y}, \nonumber \end{align}\] <p>where $(a)$ follows from linearity of expectation, and $(b)$ follows from \(\mathbf{w}\) being independent of \(\mathbf{x}_{\ast}\) when conditioned on \(\mathcal{D}\), using the posterior mean from \eqref{eq:map-w}. Similarly we have that</p> \[\begin{align} \text{Cov}[\mathbf{f}_{\ast} \mid \mathbf{x}_{\ast}, X, \mathbf{y}] = \text{Cov}[\mathbf{x}_{\ast}^\top\mathbf{w} \mid \mathbf{x}_{\ast}, X, \mathbf{y}] &amp;= \mathbf{x}_{\ast}^\top \text{Cov}[\mathbf{w} \mid X, \mathbf{y}]\mathbf{x}_{\ast}, \nonumber \\ &amp;= \mathbf{x}_{\ast}^\top A^{-1}\mathbf{x}_{\ast}. \nonumber \end{align}\] <p>where we use the linearity in computing covariances of Gaussians. This gives us the predictive distribution as</p> \[\begin{align} \mathbf{f}_{\ast} \mid \mathbf{x}_{\ast}, X, \mathbf{y} &amp;\sim \mathcal{N}\left( \frac{1}{\sigma_n^2} \mathbf{x}_{\ast}^\top A^{-1} X \mathbf{y}, \mathbf{x}_{\ast}^\top A^{-1}\mathbf{x}_{\ast} \right) \end{align}\] <p>We note that the predictive mean here is basically a linear combination of the observed points \(\mathbf{y}\).</p> <h3 id="closer-look-at-the-prediction">Closer look at the prediction</h3> <p>To take a closer look at the prediction let us start with some matrix algebra to simplify the predictive mean and covariance</p> \[\begin{align*} \frac{1}{\sigma_n^2} X \left[X^\top \Sigma_p X + \sigma_n^2 I\right] &amp;= \frac{1}{\sigma_n^2} X X^\top \Sigma_p X + X,\\ &amp;= \left[\frac{1}{\sigma_n^2} X X^\top \Sigma_p + I \right] X, \\ &amp;= \left[\frac{1}{\sigma_n^2} X X^\top + \Sigma_p^{-1} \right]\Sigma_p X,\\ &amp;= A \Sigma_p X, \\ \implies A^{-1} \frac{1}{\sigma_n^2} X \left[X^\top \Sigma_p X + \sigma_n^2 I\right] &amp;= \Sigma_p X, \\ \implies \frac{1}{\sigma_n^2} A^{-1} X \left[X^\top \Sigma_p X + \sigma_n^2 I\right] &amp;= \Sigma_p X, \\ \implies \frac{1}{\sigma_n^2} A^{-1} X &amp;= \Sigma_p X \left[X^\top \Sigma_p X + \sigma_n^2 I\right]^{-1}. \end{align*}\] <p>Using this to substitute for \(\frac{1}{\sigma_n^2} A^{-1} X\) in the mean, we have that</p> \[\begin{align*} \mathbb{E}[\mathbf{f}_{\ast} \mid \mathbf{x}_{\ast}, X, \mathbf{y}] &amp;= \mathbf{x}_{\ast}^\top \Sigma_p X \left[X^\top \Sigma_p X + \sigma_n^2 I\right]^{-1} \mathbf{y} \end{align*}\] <h4 id="the-sherman-morrisson-woodbury-lemma">The Sherman-Morrisson-Woodbury Lemma</h4> <p>The Sherman-Morrisson-Woodbury lemma or the matrix-inversion-lemma is a result in matrix analysis that allows us to invert matrices. Given invertible matrices \(Z \in \mathbb{R}^{n \times n}\), and \(W \in \mathbb{R}^{m \times m}\), and an invertible matrix \(Z + XWY^\top\), with matrices \(X, Y \in \mathbb{R}^{n \times m}\), we have that</p> \[\begin{align} \left[ Z + XWY^\top \right]^{-1} &amp;= Z^{-1} - Z^{-1}X\left[ W^{-1} + Y^\top Z^{-1} X \right] Y^{\top} Z^{-1} \end{align}\] <p>Using this with the matrix \(A\), we have that,</p> \[\begin{align*} A^{-1} &amp;= \left[\Sigma_p^{-1} + X \frac{1}{\sigma_n^2} I X^\top\right]^{-1},\\ &amp;= \Sigma_p - \Sigma_p X \left[ \sigma_n^2 I + X^\top \Sigma_p X \right]^{-1} X^\top \Sigma_p, \\ &amp;= \Sigma_p - \Sigma_p X \left[ \sigma_n^2 I + K \right]^{-1} X^\top \Sigma_p \end{align*}\] <p>where \(K= X^\top \Sigma_p X\).</p> <p>Substituting this in the covariance formula gives us that</p> \[\begin{align*} \text{Cov}[\mathbf{f}_{\ast} \mid \mathbf{x}_{\ast}, X, \mathbf{y}] &amp;= \mathbf{x}_{\ast}^\top \Sigma_p \mathbf{x}_{\ast} - \mathbf{x}_{\ast}^\top \Sigma_p X \left[ \sigma_n^2 I + K \right]^{-1} X^\top \Sigma_p \mathbf{x}_{\ast}. \end{align*}\] <p>This gives us that</p> \[\begin{align} \mathbf{f}_{\ast} \mid \mathbf{x}_{\ast}, X, \mathbf{y} &amp;\sim \mathcal{N}\left( \mathbf{x}_{\ast}^\top \Sigma_p X \left[\sigma_n^2 I + K \right]^{-1} \mathbf{y}, \mathbf{x}_{\ast}^\top \Sigma_p X \left[ \sigma_n^2 I + K \right]^{-1} X^\top \Sigma_p \mathbf{x}_{\ast} \right) \label{eq:final-predictive-distribution} \end{align}\] <p>This distribution is very interesting because it shows us that the distribution depends only on inner products between the training points \(X\) – in the form of \(K\), and between the test point \(\mathbf{x}_\ast\) and the training points \(X\), both in the spaces scaled by \(\Sigma_p\), without actually depending on the individual training points. The mean depends on the training target points \(\mathbf{y}\). This observation will be important as we proceed further.</p> <h3 id="projection-of-inputs-into-a-larger-feature-space">Projection of inputs into a larger feature space</h3> <p>The Bayesian linear model we have worked with till now has limited expressiveness. One way to overcome this is to project the input covariates into a much higher dimensional space and fit the linear model there. For example, we could project a scalar input \(x\) into a space of the powers of \(x\), i.e. \((1, x, x^2, x^3, \cdots)^\top\) to regress on all polynomials on the input. The model trained is still linear in the weights and thus tractable.</p> <p>More formally, we define \(\phi: \mathbb{R}^D \rightarrow \mathbb{R}^N\), where \(N\) is much larger than \(D\) and do inference in that place. We define</p> \[\begin{align} f (\mathbf{x}) &amp;= \phi(\mathbf{x})^\top \mathbf{w}, \\ y &amp;= f (\mathbf{x}) + \epsilon, \end{align}\] <p>Where we have \(\epsilon \sim \mathcal{N}(0, \sigma_n^2)\) as before and \(\mathbf{w} \sim \mathcal{N}(0, \Sigma_p)\), where now we have \(\Sigma_p \in \mathbb{R}^{N \times N}\) (rather than \(\mathbb{R}^{D \times D}\)).</p> <p>We use the same vectorisation as before and use \(\phi(X) = \Phi\) to represent transformations on all the training data points. For a new test point \(\mathbf{x}_{\ast}\), let us represent its projection by \(\phi_{\ast} = \phi(\mathbf{x}_{\ast})\). Further let \(\mathbf{f}_\ast\) be the predicted value for \(\mathbf{x}_{\ast}\). From eq. \eqref{eq:final-predictive-distribution}, it follows that,</p> \[\begin{align} \mathbb{E}[\mathbf{f}_{\ast} \mid \phi_\ast, \Phi, \mathbf{y}] &amp;= \phi_\ast^\top \Sigma_p \Phi \left[\sigma_n^2 I + K \right]^{-1} \mathbf{y}, \nonumber\\ \text{Cov}[\mathbf{f}_{\ast} \mid \phi_\ast, \Phi, \mathbf{y}] &amp;= \phi_\ast^\top \Sigma_p \Phi \left[ \sigma_n^2 I + K \right]^{-1} \Phi^\top \Sigma_p \phi_\ast, \nonumber \end{align}\] <p>where \(K=\Phi^\top \Sigma_p \Phi\) now.</p> <p>As before we note that this depends only on the inner products of the projection into \(\mathbb{R}^N\) between the training points and the training and test points; and not the projections themselves.</p> <p>Given two points \(\mathbf{x}\) and \(\mathbf{x}'\), we can define their covariance function or kernel as</p> \[\begin{align} k(\mathbf{x}, \mathbf{x}') &amp;= \phi(\mathbf{x})^\top \Sigma_p \phi(\mathbf{x}'),\\ &amp;\overset{(a)}{=} \phi(\mathbf{x})^\top \Sigma_p^{\frac{1}{2}} \Sigma_p^{\frac{1}{2}} \phi(\mathbf{x}'), \nonumber\\ &amp;= \psi(\mathbf{x})^\top \psi(\mathbf{x}') \nonumber \end{align}\] <p>where $(a)$ follows because the covariance matrix \(\Sigma_p\) admits a square root: it is symmetric positive definite. and \(\psi(\mathbf{x}) = \Sigma_p^{\frac{1}{2}} \phi(\mathbf{x})\).</p> <p>We can then write the predictive distribution as</p> \[\begin{align} \mathbb{E}[\mathbf{f}_{\ast} \mid \phi_\ast, \Phi, \mathbf{y}] &amp;= k(\mathbf{x}_{\ast}, X) \left[\sigma_n^2 I + k(X,X) \right]^{-1} \mathbf{y}, \nonumber\\ \text{Cov}[\mathbf{f}_{\ast} \mid \phi_\ast, \Phi, \mathbf{y}] &amp;= k(\mathbf{x}_{\ast}, X) \left[ \sigma_n^2 I + k(X,X) \right]^{-1} k(X, \mathbf{x}_{\ast}), \nonumber \end{align}\] <p>overloading \(k\) to work with vectors as well. The key observation is that the predictive distribution we derived above depends on the data only through the kernel evaluations \(k(\mathbf{x}_i, \mathbf{x}_j)\) between training points, and \(k(\mathbf{x}_i, \mathbf{x}_{\ast})\) between training points and the test point – the projections \(\phi(\cdot)\) themselves never appear. This means we can work directly with a kernel \(k(\cdot, \cdot)\) without ever constructing the feature map. This is called the <em>kernel trick</em>. For example, with the identity feature map \(\phi(\mathbf{x}) = \mathbf{x}\) we recover the linear kernel \(k(\mathbf{x}, \mathbf{x}') = \mathbf{x}^\top \Sigma_p \mathbf{x}'\) from the first half of the post. But nothing stops us from using other kernels, which might be finite dimensional or even infinite dimensional as we shall see.</p> <h2 id="feature-space-view">Feature-Space View</h2> <p>An alternative view of our development in the previous section would be to view Gaussian Processes as fitting functions. To begin, we define a <em>Gaussian Process</em>.</p> <p><strong>Gaussian Process:</strong> A Gaussian process is a collection of random variables, any finite number of which are jointly Gaussian distributed.</p> <p>Since Gaussians are completely specified by their mean and covariance, a Gaussian process is completely specified by its mean and covariance function. That is</p> \[\begin{align*} f(\mathbf{x}) \sim \mathcal{GP}(m(\mathbf{x}), k(\mathbf{x}, \mathbf{x}')), \end{align*}\] <p>if</p> \[\begin{align} m(\mathbf{x}) &amp;= \mathbb{E}[f(\mathbf{x})], \\ k(\mathbf{x}, \mathbf{x}') &amp;= \mathbb{E}[(f(\mathbf{x})-m(\mathbf{x}))(f(\mathbf{x}')-m(\mathbf{x}')) ] \end{align}\] <p><strong>Example:</strong> A simple example of a Gaussian process is</p> \[\begin{align*} f(\mathbf{x}) = \phi(\mathbf{x})^\top \mathbf{w}, \end{align*}\] <p>for \(\mathbf{x} \in \mathbb{R}^{D}\), \(\phi : \mathbb{R}^{D} \rightarrow \mathbb{R}^{N}\), and \(\mathbf{w} \sim \mathcal{N}(0, \Sigma_p)\), for some covariance matrix \(\Sigma_p \in \mathbb{R}^{N \times N}\). For this setup, we end up having that,</p> \[\begin{align*} m(\mathbf{x}) &amp;= \mathbb{E}[f(\mathbf{x})] = \mathbf{0}, \\ k(\mathbf{x}, \mathbf{x}') &amp;= \mathbb{E}[(f(\mathbf{x})-m(\mathbf{x}))(f(\mathbf{x}')-m(\mathbf{x}')) ] = \phi(\mathbf{x})^\top\Sigma_p\phi(\mathbf{x}), \end{align*}\] <p>We note that, for points \(\mathbf{x}_1, \cdots, \mathbf{x}_n\), written compactly as a matrix \(X \in \mathbb{R}^{D \times n}\), we have that \(f(X) \sim \mathcal{N}(0, \phi(X)^\top \Sigma_p \phi(X))\), overloading \(f\) and \(\phi\) to work in the vector case in the expected manner. We note that if \(n &gt; N\), the covariance matrix has a rank of at most \(N &lt; n\), and thus the Gaussian distribution is degenerate.</p> <p>We note that \(\mathbf{x}\) is often used for time in modelling, but need not be. In some modelling problems, it is actually a high dimensional variable.</p> <p>One commonly used covariance function is the <em>squared exponential</em>, which is</p> \[\begin{align} k (\mathbf{x}_p, \mathbf{x}_q) &amp;= \sigma_f^2 \exp\left( -\frac{1}{2 \ell^2} \|\mathbf{x}_p-\mathbf{x}_q\|_2^2 \right), \end{align}\] <p>where \(\sigma_f\) and \(\ell\) are hyperparameters. We note that this covariance is \(\sigma_f^2\) when \(\mathbf{x}_p=\mathbf{x}_q\), making \(\sigma_f^2\) to be the signal variance. The covariance decays as the distance between \(\mathbf{x}_p\) and \(\mathbf{x}_q\) increases, but that is determined by the length scale \(\ell\).</p> <p>For most of the next discussion we assume \(m(\mathbf{x})=\mathbf{0}\).</p> <h3 id="prediction-with-noise-free-observations">Prediction with noise-free observations</h3> <p>We first consider the case where we have noiseless observations. That is we observe \(n\) points: \(\{ (\mathbf{x}_i, f_i) \mid i = 1, 2, \cdots, n \}\). Let us be interested in predicting the value at \(n_*\) points – \(\mathbf{x}_{i*}, 1 \le i \le n_*\). We want to predict \(\mathbf{f}_* = (f_{1*}, f_{2*}, \cdots, f_{n_*})\).</p> <p>We have that</p> \[\begin{align} \begin{bmatrix} \mathbf{f}, \\ \mathbf{f}_* \end{bmatrix} &amp;\sim \mathcal{N} \left(\mathbf{0}, \begin{bmatrix} K(X, X) \quad K(X, X_*) \\ K(X_*, X) \quad K(X_*, X_*) \end{bmatrix} \right), \end{align}\] <p>where \(K(X, X_*)\) is the \(n \times n_*\) matrix of covariance between the \(n\) training points and \(n_*\) test points; and similarly \(K(X, X)\), \(K(X_*, X)\) and \(K(X_*, X_*)\). From eq. \eqref{eq:final-predictive-distribution}, we have that,</p> \[\begin{align} \mathbf{f}_* | X_*, X, \mathbf{f} &amp;\sim \mathcal{N} \left( K(X_*, X)K(X, X)^{-1}\mathbf{f}, K(X_*, X_*) - K(X_*, X)K(X, X)^{-1}K(X, X_*) \right) \end{align}\] <h3 id="prediction-from-noisy-observations">Prediction from noisy observations</h3> <p>We model noisy observations by modelling the covariance matrix as</p> \[\begin{align} \text{Cov}(y_p, y_q) &amp;= k(\mathbf{x}_p, \mathbf{x}_q) + \sigma_n^2\delta_{p,q},\\ \text{Cov}(\mathbf{y}) &amp;= K(X, X) + \sigma_n^2 I \end{align}\] <p>This gives us that</p> \[\begin{align} \begin{bmatrix} \mathbf{y}, \\ \mathbf{f}_* \end{bmatrix} &amp;\sim \mathcal{N} \left(\mathbf{0}, \begin{bmatrix} K(X, X) + \sigma_n^2 I &amp; K(X, X_*) \\ K(X_*, X) &amp; K(X_*, X_*) \end{bmatrix} \right), \end{align}\] <p>which gives us that</p> \[\begin{align} \mathbf{f}_* | X_*, X, \mathbf{y} &amp;\sim \mathcal{N} \left( K(X_*, X)\left[K(X, X) + \sigma_n^2 I \right]^{-1}\mathbf{y}, K(X_*, X_*) - K(X_*, X)\left[K(X, X) + \sigma_n^2 I \right]^{-1}K(X, X_*) \right) \end{align}\] <p>In the special case where we are only predicting for one point \(\mathbf{x}_*\), writing \(\mathbf{k}_* = k(\mathbf{x}_*) = K(X,\mathbf{x}_*)\), we have that the predicted value is</p> \[\begin{align} \hat{f}(\mathbf{x}_*) &amp;= \mathbf{k}_*^\top\left[K(X, X) + \sigma_n^2 I \right]^{-1}\mathbf{y},\\ &amp;= \sum_{i=1}^n \alpha_i k(\mathbf{x}_i, \mathbf{x}_*), \end{align}\] <p>where \(\mathbf{\alpha}=\left[K(X, X) + \sigma_n^2 I \right]^{-1}\mathbf{y}\). This gives us that the predicted value for a test point is a weighted linear combination of the inner products of the test point and each training point.</p> <p>It is easy to see that the variance of the predictor is</p> \[\begin{align*} \text{Var}\left[\hat{f}(\mathbf{x}_*)\right] = k(\mathbf{x}_*, \mathbf{x}_*) - \mathbf{k}_*^\top\left[K(X, X) + \sigma_n^2 I \right]^{-1}\mathbf{k}_*. \end{align*}\] </div> </article> <div class="series-footer"> <span class="series-footer-left"> </span> <span class="series-footer-center"> <a href="/blog/gaussian-processes/">Gaussian Processes (all parts)</a> </span> <span class="series-footer-right"> </span> </div> <style>
+  .series-box {
+    border: 1px solid var(--global-divider-color, #e0e0e0);
+    border-radius: 6px;
+    padding: 0.9rem 1.2rem;
+    margin: 1.2rem 0 2rem;
+    background: var(--global-bg-color, #fff);
+  }
+  .series-box-header {
+    margin: 0 0 0.4rem;
+    font-weight: 600;
+  }
+  .series-box-toc {
+    margin: 0;
+    padding-left: 1.4rem;
+  }
+  .series-box-toc .current {
+    font-weight: 600;
+    list-style-type: disc;
+  }
+  .series-footer {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    border-top: 1px solid var(--global-divider-color, #e0e0e0);
+    margin-top: 2.5rem;
+    padding-top: 1rem;
+    font-size: 0.95rem;
+  }
+  .series-footer-center {
+    text-align: center;
+    white-space: nowrap;
+  }
+  .series-footer-right {
+    text-align: right;
+  }
+</style> <br> <hr> <br> <h2 class="text-3xl font-semibold mb-4 mt-12">Enjoy Reading This Article?</h2> <p class="mb-2">Here are some more articles you might like to read next:</p> <ul class="list-disc pl-7 my-3 space-y-2 marker:text-[var(--global-theme-color)]"> <li class="leading-relaxed"> <a class="underline decoration-1 hover:text-[var(--global-hover-color)]" href="/blog/2026/reproducible-dev-environments-with-nix/">Reproducible dev environments with Nix and Home Manager</a> </li> </ul> </div> </div> <footer class="fixed-bottom" role="contentinfo"> <div class="container mt-0"> <div class="social-footer"> <div class="contact-icons"> <a href="/assets/pdf/GK_CV.pdf" title="Cv pdf"><i class="ai ai-cv"></i></a> <a href="mailto:govinda.kamath@gmail.com" title="Email"><i class="fa-solid fa-envelope"></i></a> <a href="/feed.xml" title="Rss icon"><i class="fa-solid fa-square-rss"></i></a> <a href="https://scholar.google.com/citations?user=UztDgakAAAAJ" title="Scholar userid" rel="external nofollow noopener" target="_blank"><i class="ai ai-google-scholar"></i></a> <a href="https://github.com/govinda-kamath" title="Github username" rel="external nofollow noopener" target="_blank"><i class="fa-brands fa-github"></i></a> <a href="https://www.linkedin.com/in/govinda-k-805b191b" title="Linkedin username" rel="external nofollow noopener" target="_blank"><i class="fa-brands fa-linkedin"></i></a> <a href="https://twitter.com/govikamath" title="X username" rel="external nofollow noopener" target="_blank"><i class="fa-brands fa-x-twitter"></i></a> </div> </div> © Copyright 2026 Govinda M. Kamath. Powered by <a href="https://jekyllrb.com/" target="_blank" rel="external nofollow noopener">Jekyll</a> with <a href="https://github.com/alshedivat/al-folio" rel="external nofollow noopener" target="_blank">al-folio</a> theme. Hosted by <a href="https://pages.github.com/" target="_blank" rel="external nofollow noopener">GitHub Pages</a>. Last updated: August 31, 2026. </div> </footer> <style>
+  .social-footer {
+    text-align: center;
+    padding-top: 2px;
+  }
+  .social-footer .contact-icons a {
+    font-size: 1.05rem;
+    margin: 0 0.45rem;
+  }
+  .social-footer .contact-icons a i {
+    vertical-align: middle;
+  }
+</style> <script>
+  window.alFolio = {
+    compatBootstrap: false
+  };
+</script> <script src="/assets/js/nav-toggle.js?v=141bd79a73ebc0f0b6ea58e440ae79fc"></script> <script defer src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js" integrity="sha256-Nn1q/fx0H7SNLZMQ5Hw5JLaTRZp0yILA/FRexe19VdI=" crossorigin="anonymous"></script> <script defer src="https://cdn.jsdelivr.net/npm/imagesloaded@5.0.0/imagesloaded.pkgd.min.js" integrity="sha256-htrLFfZJ6v5udOG+3kNLINIKh2gvoKqwEhHYfTTMICc=" crossorigin="anonymous"></script> <script defer src="/assets/js/masonry.js?v=e49affc7bd2646f6acdad1dbe02c2359" type="text/javascript"></script> <script defer type="text/javascript" id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js" integrity="sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI=" crossorigin="anonymous"></script> <script src="/assets/al_math/js/mathjax-setup.js"></script> <script src="/assets/js/tooltips-setup.js?v=fe487e99db6c43751e6e7bdb2d6a0611"></script> <script src="/assets/js/no_defer.js?v=53b1b1a645525975c963ce8bf8bfefcf"></script> <script defer src="/assets/js/common.js?v=87baac90f765f2f3362dcf6aaf312a8a"></script> <script defer src="/assets/js/copy_code.js?v=c8a01c11a92744d44b093fc3bda915df" type="text/javascript"></script> <script defer src="/assets/js/jupyter_new_tab.js?v=896d254890d9b47f0281f63bfccf0dee"></script> <script async src="https://www.googletagmanager.com/gtag/js?id=G-MT1M1VC4D8"></script> <script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag() {
+    window.dataLayer.push(arguments);
+  }
+  gtag("js", new Date());
+  gtag("config", "G-MT1M1VC4D8");
+</script> <script defer src="https://cdn.jsdelivr.net/npm/medium-zoom@1.1.0/dist/medium-zoom.min.js" integrity="sha256-ZgMyDAIYDYGxbcpJcfUnYwNevG/xi9OHKaR/8GK+jWc=" crossorigin="anonymous"></script> <script defer src="/assets/al_img_tools/js/zoom.js"></script> <script defer src="/assets/js/progress-bar.js?v=499464c5c63ced6cf7ad62509f1e2610" type="text/javascript"></script> <script src="https://cdn.jsdelivr.net/npm/vanilla-back-to-top@7.2.1/dist/vanilla-back-to-top.min.js" integrity="sha256-uMJJ3EoTyfRBoTbR+lrfu1uRQ87RZG8AR3cVNuQVeFg=" crossorigin="anonymous"></script> <script>
+    addBackToTop();
+  </script> <script type="module" src="/assets/al_search/js/search/ninja-keys.min.js"></script> <ninja-keys hidebreadcrumbs noautoloadmdicons placeholder="Type to start searching"></ninja-keys> <script src="/assets/al_search/js/search-setup.js"></script> <script>
+// get the ninja-keys element
+const ninja = document.querySelector('ninja-keys');
+
+// add the home and posts menu items
+ninja.data = [{
+    id: "nav-about",
+    title: "about",
+    section: "Navigation",
+    handler: () => {
+      window.location.href = "/";
+    },
+  },{id: "nav-blog",
+          title: "blog",
+          description: "",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/blog/";
+          },
+        },{id: "nav-publications",
+          title: "publications",
+          description: "publications by categories in reversed chronological order. generated by jekyll-scholar.",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/publications/";
+          },
+        },{id: "nav-research",
+          title: "research",
+          description: "past and current research interests",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/research/";
+          },
+        },{id: "nav-teaching",
+          title: "teaching",
+          description: "courses developed and taught",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/teaching/";
+          },
+        },{id: "nav-cv",
+          title: "CV",
+          description: "Curriculum vitae. A PDF version is also available for download.",
+          section: "Navigation",
+          handler: () => {
+            window.location.href = "/cv/";
+          },
+        },{id: "post-gaussian-processes-part-1-regression",
+        
+          title: "Gaussian Processes, Part 1 — Regression",
+        
+        description: "From Bayesian linear regression to Gaussian processes: the weight-space view, the kernel trick, and the function-space view.",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/gp-1-regression/";
+          
+        },
+      },{id: "post-reproducible-dev-environments-with-nix-and-home-manager",
+        
+          title: "Reproducible dev environments with Nix and Home Manager",
+        
+        description: "How I stopped hand-configuring GCP instances and made my dev environment reproducible with Nix and Home Manager",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2026/reproducible-dev-environments-with-nix/";
+          
+        },
+      },{id: "news-joined-10x-genomics-as-a-research-scientist-working-on-algorithms-and-machine-learning-for-single-cell-and-spatial-genomics",
+          title: 'Joined 10x Genomics as a research scientist, working on algorithms and machine learning...',
+          description: "",
+          section: "News",},{id: "news-our-paper-highlighting-the-xenium-platform-was-published-in-nature-communications",
+          title: 'Our paper highlighting the Xenium platform was published in Nature Communications.',
+          description: "",
+          section: "News",},{id: "news-visium-hd-the-spatial-transcriptomics-platform-i-mostly-worked-on-launched-publicly",
+          title: 'Visium HD, the spatial transcriptomics platform I mostly worked on launched publicly.',
+          description: "",
+          section: "News",},{id: "news-our-paper-on-the-visium-hd-was-published-in-nature-genetics",
+          title: 'Our paper on the Visium HD was published in Nature Genetics.',
+          description: "",
+          section: "News",},{id: "news-nucleus-segmentation-on-visium-hd-which-i-worked-on-released",
+          title: 'Nucleus segmentation  on visium HD (which I worked on) released.',
+          description: "",
+          section: "News",},{id: "news-our-paper-on-automated-cell-type-annotation-for-single-cell-rna-seq-the-algorithm-behind-cell-ranger-is-now-on-biorxiv",
+          title: 'Our paper on automated cell-type annotation for single-cell RNA-seq — the algorithm behind...',
+          description: "",
+          section: "News",},{id: "teachings-data-science-for-high-throughput-sequencing",
+          title: 'Data Science for High-Throughput Sequencing',
+          description: "A graduate course on the computational problems of high-throughput sequencing — genome assembly, RNA-seq quantification, single-cell analysis, and more — and the tools from statistics, computer science, and information theory used to solve them.",
+          section: "Teachings",handler: () => {
+              window.location.href = "/teachings/data-science-sequencing-2016/";
+            },},{id: "teachings-data-science-for-high-throughput-sequencing",
+          title: 'Data Science for High-Throughput Sequencing',
+          description: "A graduate course on the computational problems of high-throughput sequencing — genome assembly, RNA-seq quantification, single-cell analysis, and more — and the tools from statistics, computer science, and information theory used to solve them.",
+          section: "Teachings",handler: () => {
+              window.location.href = "/teachings/data-science-sequencing-2018/";
+            },},{
+        id: 'social-cv',
+        title: 'CV',
+        section: 'Socials',
+        handler: () => {
+          window.open("/assets/pdf/GK_CV.pdf", "_blank");
+        },
+      },{
+        id: 'social-email',
+        title: 'email',
+        section: 'Socials',
+        handler: () => {
+          window.open("mailto:%67%6F%76%69%6E%64%61.%6B%61%6D%61%74%68@%67%6D%61%69%6C.%63%6F%6D", "_blank");
+        },
+      },{
+        id: 'social-rss',
+        title: 'RSS Feed',
+        section: 'Socials',
+        handler: () => {
+          window.open("/feed.xml", "_blank");
+        },
+      },{
+        id: 'social-scholar',
+        title: 'Google Scholar',
+        section: 'Socials',
+        handler: () => {
+          window.open("https://scholar.google.com/citations?user=UztDgakAAAAJ", "_blank");
+        },
+      },{
+        id: 'social-github',
+        title: 'GitHub',
+        section: 'Socials',
+        handler: () => {
+          window.open("https://github.com/govinda-kamath", "_blank");
+        },
+      },{
+        id: 'social-linkedin',
+        title: 'LinkedIn',
+        section: 'Socials',
+        handler: () => {
+          window.open("https://www.linkedin.com/in/govinda-k-805b191b", "_blank");
+        },
+      },{
+        id: 'social-x',
+        title: 'X',
+        section: 'Socials',
+        handler: () => {
+          window.open("https://twitter.com/govikamath", "_blank");
+        },
+      },{
+      id: 'light-theme',
+      title: 'Change theme to light',
+      description: 'Change the theme of the site to Light',
+      section: 'Theme',
+      handler: () => {
+        setThemeSetting("light");
+      },
+    },
+    {
+      id: 'dark-theme',
+      title: 'Change theme to dark',
+      description: 'Change the theme of the site to Dark',
+      section: 'Theme',
+      handler: () => {
+        setThemeSetting("dark");
+      },
+    },
+    {
+      id: 'system-theme',
+      title: 'Use system default theme',
+      description: 'Change the theme of the site to System Default',
+      section: 'Theme',
+      handler: () => {
+        setThemeSetting("system");
+      },
+    },];
+
+</script> <script src="/assets/al_search/js/shortcut-key.js"></script> </body> </html>
