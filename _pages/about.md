@@ -2,6 +2,7 @@
 layout: about
 title: about
 permalink: /
+og_image: /assets/img/prof_pic.jpg
 subtitle: Research Scientist at <a href="https://www.10xgenomics.com/">10x Genomics</a>. Algorithms and machine learning for genomics.
 
 profile:
