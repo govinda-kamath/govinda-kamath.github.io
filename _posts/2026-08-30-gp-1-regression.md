@@ -4,6 +4,7 @@ title: Gaussian Processes, Part 1 — Regression
 date: 2026-08-30
 description: "From Bayesian linear regression to Gaussian processes: the weight-space view, the kernel trick, and the function-space view."
 slug: gp-1-regression
+og_image: /assets/img/gp-banner.png
 series: gaussian-processes
 series_part: 1
 tags: gaussian-processes machine-learning
